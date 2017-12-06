@@ -1,0 +1,6 @@
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\bin\Debug\Tetris.Builder.exe.config
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\bin\Debug\Tetris.Builder.exe
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\bin\Debug\Tetris.Builder.pdb
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\obj\Debug\Tetris.Builder.csprojResolveAssemblyReference.cache
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\obj\Debug\Tetris.Builder.exe
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\Tetris.Builder\obj\Debug\Tetris.Builder.pdb

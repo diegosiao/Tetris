@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Builder", "Tetris.Builder\Tetris.Builder.csproj", "{96EAC4B3-25EA-4D30-AE65-C0A85FBC61C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tetris.Common", "Tetris.Common\Tetris.Common.csproj", "{3E84C693-E8BF-4F52-BE39-37CCAF2B2BD7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{1799A9DC-E93D-4D5D-807B-30D110C52DAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageManager", "GarageManager\GarageManager.csproj", "{70A29FC5-705F-4650-9DA3-51C9CEF562BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96EAC4B3-25EA-4D30-AE65-C0A85FBC61C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96EAC4B3-25EA-4D30-AE65-C0A85FBC61C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96EAC4B3-25EA-4D30-AE65-C0A85FBC61C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96EAC4B3-25EA-4D30-AE65-C0A85FBC61C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E84C693-E8BF-4F52-BE39-37CCAF2B2BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E84C693-E8BF-4F52-BE39-37CCAF2B2BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E84C693-E8BF-4F52-BE39-37CCAF2B2BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E84C693-E8BF-4F52-BE39-37CCAF2B2BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A29FC5-705F-4650-9DA3-51C9CEF562BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A29FC5-705F-4650-9DA3-51C9CEF562BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A29FC5-705F-4650-9DA3-51C9CEF562BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A29FC5-705F-4650-9DA3-51C9CEF562BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{70A29FC5-705F-4650-9DA3-51C9CEF562BD} = {1799A9DC-E93D-4D5D-807B-30D110C52DAC}
+	EndGlobalSection
+EndGlobal

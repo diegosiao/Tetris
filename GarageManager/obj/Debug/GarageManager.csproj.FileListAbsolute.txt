@@ -1,0 +1,16 @@
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\bin\Debug\GarageManager.exe.config
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\bin\Debug\GarageManager.exe
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\bin\Debug\GarageManager.pdb
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\bin\Debug\Tetris.Common.dll
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\bin\Debug\Tetris.Common.pdb
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.csprojResolveAssemblyReference.cache
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\MainWindow.g.cs
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\App.g.cs
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager_MarkupCompile.cache
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager_MarkupCompile.lref
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\MainWindow.baml
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.g.resources
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.Properties.Resources.resources
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.csproj.GenerateResource.Cache
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.exe
+C:\Users\diegomorais\git\Tetris\Tetris2\Tetris\GarageManager\obj\Debug\GarageManager.pdb
