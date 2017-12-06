@@ -40,24 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BooleanStatement.cs" />
+    <Compile Include="SqlServer\SqlIf.cs" />
+    <Compile Include="Statement.cs" />
+    <Compile Include="StatementBoolean.cs" />
     <Compile Include="DbEngine.cs" />
     <Compile Include="DbEngineManager.cs" />
     <Compile Include="DbEngineSqlServer.cs" />
-    <Compile Include="DbEntity.cs" />
-    <Compile Include="DbObject.cs" />
-    <Compile Include="DbProcedure.cs" />
-    <Compile Include="DbProcedureParameter.cs" />
-    <Compile Include="DbProcedureVariable.cs" />
-    <Compile Include="IfStatement.cs" />
-    <Compile Include="InsertStatement.cs" />
+    <Compile Include="Objects\DbEntity.cs" />
+    <Compile Include="Objects\DbObject.cs" />
+    <Compile Include="Objects\DbProcedure.cs" />
+    <Compile Include="Objects\DbProcedureParameter.cs" />
+    <Compile Include="Objects\DbProcedureVariable.cs" />
+    <Compile Include="StatementIf.cs" />
+    <Compile Include="StatementInsert.cs" />
     <Compile Include="Mapping\DbReadOnly.cs" />
     <Compile Include="Mapping\DbWriteOnly.cs" />
     <Compile Include="Mapping\MappedClass.cs" />
     <Compile Include="Mapping\MappingUtils.cs" />
     <Compile Include="Mapping\PrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlStatement.cs" />
+    <Compile Include="StatementSql.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

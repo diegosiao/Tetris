@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris.Mapping
+namespace Tetris.Common
 {
-    public class DbWriteOnly : Attribute
+    public class Statement
     {
+        
     }
 }

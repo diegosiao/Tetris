@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tetris.Common.Mapping;
+using Tetris.Mapping;
 
 namespace GarageManager.Model
 {

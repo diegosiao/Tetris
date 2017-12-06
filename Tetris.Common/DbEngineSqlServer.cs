@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace Tetris.Common
 {
@@ -36,5 +37,19 @@ namespace Tetris.Common
         {
             return new SqlParameter(Name, Value);
         }
+
+        internal override string SqlProcedureCreation(DbProcedure procedure)
+        {
+            var sql = new StringBuilder()
+            .AppendLine($"CREATE PROCEDURE { procedure.GetSchema() }.{ procedure.GetName() }")
+            .AppendLine(" --  #PARAMETERS# @param1 INT;")
+            .AppendLine("AS")
+            .AppendLine("BEGIN")
+            .AppendLine(procedure.GetBody())
+            .AppendLine("END")
+            .AppendLine("-- GO");
+
+            return sql.ToString();
+        }        
     }
 }

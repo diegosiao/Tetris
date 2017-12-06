@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
-    public class InsertStatement
+    public class StatementInsert
     {
-        public InsertStatement SetWithId(string variable)
+        public StatementInsert SetWithId(string variable)
         {
             return null;
         }
 
-        public InsertStatement SetWithRowsAffected(string variable)
+        public StatementInsert SetWithRowsAffected(string variable)
         {
             return null;
         }

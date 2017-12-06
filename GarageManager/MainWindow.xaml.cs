@@ -51,7 +51,9 @@ namespace GarageManager
         private void button4_Click(object sender, RoutedEventArgs e)
         {
             var command = new InsertCustomerWithCar(new Customer(), new Car());
-            command.Execute();
+            command.Create(DbEngineManager.GetEngine(new Customer()));
+            
+            //var result = command.Execute();            
         }
     }
 }

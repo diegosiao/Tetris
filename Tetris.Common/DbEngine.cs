@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
-using Tetris.Common.Mapping;
+using Tetris.Mapping;
 
 namespace Tetris.Common
 {
@@ -21,19 +21,21 @@ namespace Tetris.Common
             this.Database = Database;
         }
 
-        public Dictionary<string, SqlStatement> CachedStatements { get; set; }
+        public Dictionary<string, StatementSql> CachedStatements { get; set; }
+
+        internal abstract string SqlProcedureCreation(DbProcedure procedure);
 
         internal abstract string ProcedureDeclareVar { get; }
 
         internal abstract string ProcedureSetVar { get; }
-
+                
         internal abstract DbConnection GetConnection();
 
         internal abstract DbParameter GetParameter(string Name, object Value);
 
-        internal virtual SqlStatement GetInsertStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
+        internal virtual StatementSql GetInsertStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
         {
-            var statement = new SqlStatement();
+            var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
             var insertColumns = new StringBuilder($"INSERT INTO { MappingUtils.GetTable(ObjectType) } (");
@@ -57,9 +59,9 @@ namespace Tetris.Common
             return statement;
         }
 
-        internal virtual SqlStatement GetUpdateStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
+        internal virtual StatementSql GetUpdateStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
         {
-            var statement = new SqlStatement();
+            var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
             var updateStatement = new StringBuilder($"UPDATE { MappingUtils.GetTable(ObjectType) } SET ");
@@ -81,9 +83,9 @@ namespace Tetris.Common
             return statement;
         }
 
-        internal virtual SqlStatement GetDeleteStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
+        internal virtual StatementSql GetDeleteStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
         {
-            var statement = new SqlStatement();
+            var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
             statement.Sentence = $"DELETE FROM { MappingUtils.GetTable(ObjectType) } WHERE { primaryKeyName } = @{ primaryKeyName }";
@@ -92,9 +94,9 @@ namespace Tetris.Common
             return statement;
         }
 
-        internal virtual SqlStatement GetByIdStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
+        internal virtual StatementSql GetByIdStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
         {
-            var statement = new SqlStatement();
+            var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
             statement.Sentence = $"SELECT * FROM { MappingUtils.GetTable(ObjectType) } WHERE { primaryKeyName } = @{ primaryKeyName }";
@@ -103,7 +105,7 @@ namespace Tetris.Common
             return statement;
         }
 
-        internal virtual void ExecuteStatement(SqlStatement statement)
+        internal virtual void ExecuteStatement(StatementSql statement)
         {
             using(var connection = GetConnection())
             {
@@ -117,7 +119,7 @@ namespace Tetris.Common
             }
         }
 
-        internal virtual DbDataReader ExecuteReadingStatement(SqlStatement statement)
+        internal virtual DbDataReader ExecuteReadingStatement(StatementSql statement)
         {
             var command = GetConnection().CreateCommand();
             command.CommandType = statement.CommandType;

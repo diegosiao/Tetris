@@ -1,4 +1,4 @@
-﻿using Tetris.Common.Mapping;
+﻿using Tetris.Mapping;
 
 namespace GarageManager.Model
 {

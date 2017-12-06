@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris.Common.Mapping
+namespace Tetris.Mapping
 {
     public class MappedClass : Attribute
     {

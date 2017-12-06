@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tetris.Common.Mapping
+namespace Tetris.Mapping
 {
     internal static class MappingUtils
     {

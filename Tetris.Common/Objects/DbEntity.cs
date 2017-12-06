@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Tetris.Common.Mapping;
+using Tetris.Mapping;
 
 namespace Tetris.Common
 {

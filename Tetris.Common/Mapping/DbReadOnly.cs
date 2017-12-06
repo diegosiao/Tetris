@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tetris.Common.Mapping
+namespace Tetris.Mapping
 {
     public enum DefaultExpression { Timestamp }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
-    public class SqlStatement
+    public class StatementSql
     {
         public string Sentence { get; set; }
 
@@ -16,7 +16,7 @@ namespace Tetris.Common
 
         public CommandType CommandType { get; set; }
 
-        public SqlStatement()
+        public StatementSql()
         {
             Parameters = new List<DbParameter>();
         }
