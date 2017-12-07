@@ -15,7 +15,7 @@
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="Details">
+            <TabItem Header="Details" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
                     <Button x:Name="button" Content="Insert" HorizontalAlignment="Left" Margin="406,241,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" />
                     <Button x:Name="button1" Content="Update" HorizontalAlignment="Left" Margin="300,241,0,0" VerticalAlignment="Top" Width="75" Click="button_Click_1" />

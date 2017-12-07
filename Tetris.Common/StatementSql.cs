@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
-    public class StatementSql
+    public class StatementSql : Statement
     {
         public string Sentence { get; set; }
 

@@ -8,31 +8,58 @@ namespace Tetris.Common
 {
     public class StatementIf : Statement
     {
-        private static StatementIf _this;
-        
+        private List<Statement> _then_expressions;
+
+        private StatementBoolean boolean;
+
         public StatementIf()
         {
-            _this = this;
+
         }
 
-        public StatementIf Then(params object[] args)
+        public StatementIf(StatementBoolean boolean)
         {
-            return _this;
+            this.boolean = boolean;
+            _then_expressions = new List<Statement>();
+        }
+
+        public StatementIf Then(params Statement[] args)
+        {
+            _then_expressions.AddRange(args);
+            return this;
         }
 
         public StatementIf ElseIf()
         {
-            return _this;
+
+            return this;
         }
 
         public StatementIf Else(object obj)
         {
-            return _this;
+
+            return this;
         }
 
         internal void Add(StatementBoolean statement)
         {
             
+        }
+
+        public override string ToString()
+        {
+            var block = new StringBuilder();
+
+            block
+                .AppendLine("IF " + boolean.ToString() + " THEN ")
+                .AppendLine("BEGIN");
+
+            foreach (var item in _then_expressions)
+                block.AppendLine(item.ToString());
+
+            block.AppendLine("END");
+
+            return block.ToString();
         }
     }
 }

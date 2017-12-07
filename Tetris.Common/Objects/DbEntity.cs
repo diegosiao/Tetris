@@ -23,14 +23,14 @@ namespace Tetris.Common
         private static void Insert(T Object)
         {
             var engine = DbEngineManager.GetEngine(Object);
-            var statement = engine.GetInsertStatement(Object.GetType(), GetWriteValues(Object), MappingUtils.GetPrimaryKeyName(Object));
+            var statement = engine.GetInsertStatement(Object);
             engine.ExecuteStatement(statement);
         }
 
         private static void Update(T Object, object id)
         {
             var engine = DbEngineManager.GetEngine(Object);
-            var statement = engine.GetUpdateStatement(Object.GetType(), GetWriteValues(Object), MappingUtils.GetPrimaryKeyName(Object));
+            var statement = engine.GetUpdateStatement(Object);
             engine.ExecuteStatement(statement);
         }
 
@@ -74,32 +74,6 @@ namespace Tetris.Common
         public static List<T> GetAll()
         {
             return null;
-        }
-
-        private static Dictionary<string, object> GetWriteValues(T Object)
-        {
-            var mappedValues = new Dictionary<string, object>();
-            var noPrimaryKey = true;
-
-            foreach(var prop in Object.GetType().GetProperties())
-            {
-                if (MappingUtils.IsReadOnly(prop))
-                    continue;
-
-                if (MappingUtils.IsCollection(prop))
-                    continue;
-
-                if (MappingUtils.IsPrimaryKey(prop)){
-                    noPrimaryKey = false;
-                }
-
-                mappedValues.Add(prop.Name, prop.GetValue(Object));
-            }
-
-            if (noPrimaryKey)
-                throw new Exception($"No primary key mapping attribute for '{ Object.GetType().FullName }' (Attribute missing: [PrimaryKey])");
-
-            return mappedValues;
         }
     }
 }

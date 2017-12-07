@@ -33,17 +33,17 @@ namespace Tetris.Common
 
         internal abstract DbParameter GetParameter(string Name, object Value);
 
-        internal virtual StatementSql GetInsertStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
+        internal virtual StatementSql GetInsertStatement(object Object)
         {
             var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
-            var insertColumns = new StringBuilder($"INSERT INTO { MappingUtils.GetTable(ObjectType) } (");
+            var insertColumns = new StringBuilder($"INSERT INTO { MappingUtils.GetTable(Object) } (");
             var insertValues = new StringBuilder("VALUES(");
 
-            foreach (var item in MappedValues)
+            foreach (var item in MappingUtils.GetWriteValues(Object))
             {
-                if (item.Key.Equals(primaryKeyName))
+                if (item.Key.Equals(MappingUtils.GetPrimaryKeyName(Object)))
                     continue;
 
                 insertColumns.Append(item.Key).Append(",");
@@ -54,19 +54,21 @@ namespace Tetris.Common
             
             statement.Sentence = 
                 insertColumns.ToString().Substring(0, insertColumns.Length - 1) + ") " + 
-                insertValues.ToString().Substring(0, insertValues.Length - 1) + ") ";
+                insertValues.ToString().Substring(0, insertValues.Length - 1) + "); ";
 
             return statement;
         }
 
-        internal virtual StatementSql GetUpdateStatement(Type ObjectType, Dictionary<string, object> MappedValues, string primaryKeyName)
+        internal virtual StatementSql GetUpdateStatement(object Object)
         {
             var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
-            var updateStatement = new StringBuilder($"UPDATE { MappingUtils.GetTable(ObjectType) } SET ");
-            
-            foreach (var item in MappedValues)
+            var updateStatement = new StringBuilder($"UPDATE { MappingUtils.GetTable(Object) } SET ");
+
+            var primaryKeyName = MappingUtils.GetPrimaryKeyName(Object);
+            var mappedValues = MappingUtils.GetWriteValues(Object);
+            foreach (var item in mappedValues)
             {
                 if (item.Key.Equals(primaryKeyName))
                     continue;
@@ -76,30 +78,30 @@ namespace Tetris.Common
                 statement.Parameters.Add(GetParameter("@" + item.Key, item.Value));
             }
             
-            statement.Parameters.Add(GetParameter($"@{ primaryKeyName }", MappedValues[primaryKeyName]));
+            statement.Parameters.Add(GetParameter($"@{ primaryKeyName }", mappedValues[primaryKeyName]));
 
             statement.Sentence = updateStatement.ToString().Substring(0, updateStatement.Length - 2);
             statement.Sentence += $" WHERE { primaryKeyName } = @{ primaryKeyName }"; 
             return statement;
         }
 
-        internal virtual StatementSql GetDeleteStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
+        internal virtual StatementSql GetDeleteStatement(object Object, string primaryKeyName, object primaryKeyValue)
         {
             var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
-            statement.Sentence = $"DELETE FROM { MappingUtils.GetTable(ObjectType) } WHERE { primaryKeyName } = @{ primaryKeyName }";
+            statement.Sentence = $"DELETE FROM { MappingUtils.GetTable(Object) } WHERE { primaryKeyName } = @{ primaryKeyName }";
             statement.Parameters.Add(GetParameter($"@{ primaryKeyName }", primaryKeyValue));
 
             return statement;
         }
 
-        internal virtual StatementSql GetByIdStatement(Type ObjectType, string primaryKeyName, object primaryKeyValue)
+        internal virtual StatementSql GetByIdStatement(object Object, string primaryKeyName, object primaryKeyValue)
         {
             var statement = new StatementSql();
             statement.CommandType = CommandType.Text;
 
-            statement.Sentence = $"SELECT * FROM { MappingUtils.GetTable(ObjectType) } WHERE { primaryKeyName } = @{ primaryKeyName }";
+            statement.Sentence = $"SELECT * FROM { MappingUtils.GetTable(Object) } WHERE { primaryKeyName } = @{ primaryKeyName }";
             statement.Parameters.Add(GetParameter($"@{ primaryKeyName }", primaryKeyValue));
 
             return statement;

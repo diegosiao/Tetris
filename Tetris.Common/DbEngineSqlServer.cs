@@ -45,11 +45,20 @@ namespace Tetris.Common
             .AppendLine(" --  #PARAMETERS# @param1 INT;")
             .AppendLine("AS")
             .AppendLine("BEGIN")
-            .AppendLine(procedure.GetBody())
+            .AppendLine(procedure.ToString())
             .AppendLine("END")
             .AppendLine("-- GO");
 
             return sql.ToString();
-        }        
+        }
+
+        private string BuildedProcedureBody(DbProcedure procedure)
+        {
+            var body = new StringBuilder();
+
+            
+
+            return "";
+        }
     }
 }

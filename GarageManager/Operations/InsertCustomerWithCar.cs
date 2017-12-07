@@ -17,22 +17,21 @@ namespace GarageManager.Operations
         {
             Customer = customer;
             Car = car;
-
-            Parameters(new DbProcedureParameter[] { });
-            Variables(new DbProcedureVariable[] { });
         }
 
         #region Execution context variables
         const string IdCustomer = "IdCustomer";
-        const string IdCar = "IdCustomer";
+        const string IdCar = "IdCar";
         #endregion
 
         protected override void Body()
         {
+            Parameters(new DbProcedureParameter[] { });
+            Variables(new DbProcedureVariable[] { });
+
             If(NotExists(Customer).And(NotExists(Car))).Then(
-                /*Insert(Customer).SetWithId(IdCustomer),
-                Insert(Car).SetWithId(IdCar),
-                Insert("Customers_Cars", new { id_customer = IdCustomer, id_car = IdCar })*/
+                Insert(Customer).SetWithId(IdCustomer),
+                Insert(Car).SetWithId(IdCar)
             )
             .Else(
                 Warn()

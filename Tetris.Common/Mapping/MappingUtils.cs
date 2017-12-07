@@ -9,16 +9,16 @@ namespace Tetris.Mapping
 {
     internal static class MappingUtils
     {
-        internal static string GetTable(Type ObjectType)
+        internal static string GetTable(object Object)
         {
-            var attributes = ObjectType.GetCustomAttributes(true);
+            var attributes = Object.GetType().GetCustomAttributes(true);
 
             if (attributes != null)
                 foreach (var item in attributes)
                     if (item is MappedClass)
                         return ((MappedClass)item).Table;
 
-            throw new Exception($"Add the mapping attribute [MappedClass] with table name to '{ ObjectType.FullName }'");
+            throw new Exception($"Add the mapping attribute [MappedClass] with table name to '{ Object.GetType().FullName }'");
         }
 
         internal static bool IsPrimaryKey(PropertyInfo property)
@@ -95,5 +95,31 @@ namespace Tetris.Mapping
             return false;
         }
 
+        internal static Dictionary<string, object> GetWriteValues(object Object)
+        {
+            var mappedValues = new Dictionary<string, object>();
+            var noPrimaryKey = true;
+
+            foreach (var prop in Object.GetType().GetProperties())
+            {
+                if (IsReadOnly(prop))
+                    continue;
+
+                if (IsCollection(prop))
+                    continue;
+
+                if (IsPrimaryKey(prop))
+                {
+                    noPrimaryKey = false;
+                }
+
+                mappedValues.Add(prop.Name, prop.GetValue(Object));
+            }
+
+            if (noPrimaryKey)
+                throw new Exception($"No primary key mapping attribute for '{ Object.GetType().FullName }' (Attribute missing: [PrimaryKey])");
+
+            return mappedValues;
+        }
     }
 }

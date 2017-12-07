@@ -6,16 +6,33 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
-    public class StatementInsert
+    public class StatementInsert : StatementSql
     {
+        public StatementInsert() : base()
+        {
+
+        }
+
+        public StatementInsert(StatementSql statetment)
+        {
+            Sentence = statetment.Sentence;
+            Parameters = statetment.Parameters;
+        }
+
         public StatementInsert SetWithId(string variable)
         {
-            return null;
+            Sentence += "\r\nSELECT @@IDENTITY INTO @" + variable + ";\r\n";
+            return this;
         }
 
         public StatementInsert SetWithRowsAffected(string variable)
         {
-            return null;
+            return this;
+        }
+
+        public override string ToString()
+        {
+            return Sentence;
         }
     }
 }

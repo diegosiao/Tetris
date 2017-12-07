@@ -70,7 +70,8 @@ namespace Tetris.Common
 
         protected StatementInsert Insert(object Object)
         {
-            return null;
+            var insert = new StatementInsert(_engine.GetInsertStatement(Object));
+            return insert;
         }
         
         protected StatementInsert Insert(string Table, object args)
@@ -81,7 +82,7 @@ namespace Tetris.Common
         protected StatementBoolean NotExists(object Object)
         {
             var booleanStatement = new StatementBoolean();
-            booleanStatement.Sentence = $@"NOT EXISTS(SELECT * FROM { MappingUtils.GetTable(Object.GetType()) } WHERE { MappingUtils.GetPrimaryKeyName(Object) } = @{ MappingUtils.GetPrimaryKeyName(Object) })";
+            booleanStatement.Sentence = $@"NOT EXISTS(SELECT * FROM { MappingUtils.GetTable(Object) } WHERE { MappingUtils.GetPrimaryKeyName(Object) } = @{ MappingUtils.GetPrimaryKeyName(Object) })";
             booleanStatement.Parameters.Add(_engine.GetParameter("@" + MappingUtils.GetPrimaryKeyName(Object), MappingUtils.GetIdValue(Object)));
                         
             return booleanStatement;
@@ -94,7 +95,7 @@ namespace Tetris.Common
 
         protected StatementIf If(StatementBoolean statement)
         {
-            var @if = new StatementIf();
+            var @if = new StatementIf(statement);
             @if.Add(statement);
 
             _blocks.Add(@if);
@@ -107,9 +108,14 @@ namespace Tetris.Common
 
         }
 
-        internal string GetBody()
+        public override string ToString()
         {
-            return "";
+            _body = new StringBuilder();
+
+            foreach (var block in _blocks)
+                _body.AppendLine(block.ToString());
+
+            return _body.ToString();
         }
     }
 }

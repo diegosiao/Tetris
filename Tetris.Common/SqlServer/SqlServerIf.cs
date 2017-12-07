@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common.SqlServer
 {
-    public class SqlIf : StatementIf
+    public class SqlServerIf : StatementIf
     {
 
     }

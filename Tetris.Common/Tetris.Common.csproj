@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SqlServer\SqlIf.cs" />
+    <Compile Include="Oracle\OracleIf.cs" />
+    <Compile Include="SqlServer\SqlServerIf.cs" />
     <Compile Include="Statement.cs" />
     <Compile Include="StatementBoolean.cs" />
     <Compile Include="DbEngine.cs" />
