@@ -8,11 +8,11 @@ Using what I called 'Database Agnostic Intermidiate Objects', you can build the 
 
 **Note: this project is in development and should not be used in production enviroments.**
 
-### How to use Tetris in my project? ###
+### How to use Tetris in my .NET project? ###
 
 You can both:
 
-* Via NuGet executing the command: **Install-Package Tetris** in the NuGet package manager console.
+* Add via NuGet executing the command: **Install-Package Tetris** in NuGet Package Manager console.
 
 * Clone the repository and add a reference to Tetris.Common Visual Studio project in your application references.
 
