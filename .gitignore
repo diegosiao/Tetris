@@ -11,12 +11,11 @@
 *.userprefs
 
 # Build results
-Tetris.Common/bin/
-Tetris.Common/obj/
-Tetris.Builder/bin/
-Tetris.Builder/obj/
-Tetris.GarageManager/bin/
-Tetris.GarageManager/obj/
+/Tetris.Common/bin/
+/Tetris.Common/obj/
+/Tetris.Builder/bin/
+/Tetris.Builder/obj/
+/Tetris.Builder/obj/Debug/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -236,3 +235,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/GarageManager/bin/Debug
+/GarageManager/obj/Debug
