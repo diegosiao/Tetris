@@ -28,14 +28,22 @@ namespace GarageManager.Operations
         {
             Parameters(new DbProcedureParameter[] { });
             Variables(new DbProcedureVariable[] { });
-
-            If(NotExists(Customer).And(NotExists(Car))).Then(
+            
+            If(IsCustomerAdult()).Then(
                 Insert(Customer).SetWithId(IdCustomer),
                 Insert(Car).SetWithId(IdCar)
             )
             .Else(
                 Warn()
             );
+        }
+
+        private StatementBoolean IsCustomerAdult()
+        {
+            var stmt = new StatementBoolean();
+            stmt.Sentence = $"EXISTS(SELECT * FROM { nameof(Customer.Name) })";
+
+            return stmt;
         }
     }
 }

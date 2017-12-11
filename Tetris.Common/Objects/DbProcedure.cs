@@ -33,11 +33,18 @@ namespace Tetris.Common
 
         protected abstract void Body();
 
-        public object Execute()
+        public TetrisResult Execute()
         {
+            _engine.ExecuteReadingStatement(null);
             return null;
         }
-        
+
+        public object Execute<T>()
+        {
+            _engine.ExecuteReadingStatement(null);
+            return null;
+        }
+
         public void Create(DbEngine engine)
         {
             Body();

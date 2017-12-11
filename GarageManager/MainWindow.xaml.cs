@@ -52,8 +52,8 @@ namespace GarageManager
         {
             var command = new InsertCustomerWithCar(new Customer(), new Car());
             command.Create(DbEngineManager.GetEngine(new Customer()));
-            
-            //var result = command.Execute();            
+
+            var result = command.Execute();
         }
     }
 }
