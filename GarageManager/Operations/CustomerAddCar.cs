@@ -3,7 +3,7 @@ using Tetris.Common;
 
 namespace GarageManager.Operations
 {
-    public class InsertCustomerWithCar : DbProcedure
+    public class CustomerAddCar : DbProcedure
     {
         protected override string Schema => "dbo";
 
@@ -15,18 +15,23 @@ namespace GarageManager.Operations
 
         protected override void Body()
         {
-            Declare("vCustomerCars");
+            If(NotExists(Customer)).Then(
+                Warn("The customer specified does not exist"),
+                Return()
+            );
+
+            If(NotExists(Car)).Then(
+                Warn("The car specified does not exist"),
+                Return()
+            );
 
             If(Exists(Customer, "WHERE Id IN (SELECT CustomerId FROM CustomersBanned)")).Then(
                 Warn("Sorry, you have been banned from our company."),
                 Return()
             );
-
+            
             If(Exists(Customer).And(NotExists(Car))).Then(
                 
-            ).
-            Else(
-                Warn("Only pre-existing customers can add a car")
             );
         }
     }

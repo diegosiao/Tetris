@@ -30,27 +30,27 @@ namespace GarageManager
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            //DbEntity<Customer>.Save(new Customer() { Name = "Diego Morais", Phone = "99135-7242", Email = "diegosiao@gmail.com" });
+            DbEntity<Customer>.Save(new Customer() { Name = "Diego Morais", Phone = "99135-7242", Email = "diegosiao@gmail.com" });
         }
 
         private void button_Click_1(object sender, RoutedEventArgs e)
         {
-            //DbEntity<Customer>.Save(new Customer() { Id = 1, Name = "Diego Morais de Medeiros", Phone = "99135-7242", Email = "diegosiao@gmail.com" });
+            DbEntity<Customer>.Save(new Customer() { Id = 1, Name = "Diego Morais de Medeiros", Phone = "99135-7242", Email = "diegosiao@gmail.com" });
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            //DbEntity<Customer>.Delete(new Customer() { Id = 2 });
+            DbEntity<Customer>.Delete(new Customer() { Id = 2 });
         }
 
         private void button3_Click(object sender, RoutedEventArgs e)
         {
-            //var customer = DbEntity<Customer>.GetById(3);
+            var customer = DbEntity<Customer>.GetById(3);
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
         {
-            //var command = new InsertCustomerWithCar(new Customer(), new Car());
+            //var command = new CustomerAddCar(new Customer(), new Car());
             //command.Create(DbEngineManager.GetEngine(new Customer()));
 
             //var result = command.Execute();

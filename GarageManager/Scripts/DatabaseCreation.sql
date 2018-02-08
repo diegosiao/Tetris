@@ -1,18 +1,41 @@
 create table Customers(
-	Id int not null identity(1,1) primary key,
-	Name varchar(120) not null,
-	Phone varchar(120) not null,
-	Email varchar(120) not null,
-	Creation datetime not null default(getdate())
+	Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	Name VARCHAR(120) NOT NULL,
+	Phone VARCHAR(120) NOT NULL,
+	Email VARCHAR(120) NOT NULL,
+	Creation DATETIME NOT NULL DEFAULT(GETDATE())
 );
 GO
 
-create table CustomersBanned(
-	Id int not null identity(1, 1) primary key,
-	CustomerId int,
-	Creation datetime not null default(getdate())
+CREATE TABLE Cars (
+	Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	Description VARCHAR(120),
+	PlatesNumber VARCHAR(45),
+	Creation DATETIME NOT NULL DEFAULT(GETDATE())
 );
 GO
 
-select * from Customers;
-select * from CustomersBanned;
+CREATE TABLE Customers_Cars (
+	Id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	CustomerId INT NOT NULL CONSTRAINT FK_Customers_Cars_CustomerId 
+		FOREIGN KEY(CustomerId) REFERENCES Customers,
+	CarId INT NOT NULL CONSTRAINT FK_Customers_Cars_CarId 
+		FOREIGN KEY(CarId) REFERENCES Cars,
+	Creation DATETIME NOT NULL DEFAULT(GETDATE())
+);
+GO
+
+CREATE TABLE CustomersBanned(
+	Id INT NOT NULL IDENTITY(1, 1) PRIMARY KEY,
+	CustomerId INT NOT NULL CONSTRAINT FK_CustomersBanned_CustomerId 
+		FOREIGN KEY(CustomerId) REFERENCES Customers,
+	Creation DATETIME NOT NULL DEFAULT(GETDATE())
+);
+GO
+
+DROP TABLE CustomersBanned;
+
+SELECT * FROM Customers;
+SELECT * FROM Cars;
+SELECT * FROM Customers_Cars;
+SELECT * FROM CustomersBanned;
