@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
-    public class Statement
+    public class StatementSet : Statement
     {
-        public string ExternalHelper { get; set; }
+
     }
 }

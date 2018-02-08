@@ -13,12 +13,17 @@ namespace Tetris.Common
 
         internal StringBuilder _body { get; set; }
 
-        private List<Statement> _blocks { get; set; }
+        private List<Statement> _statements { get; set; }
+        
+        public DbProcedure()
+        {
+
+        }
 
         public DbProcedure(DbEngine engine)
         {
             _engine = engine;
-            _blocks = new List<Statement>();
+            _statements = new List<Statement>();
         }
 
         protected void Parameters(params DbProcedureParameter[] parameters)
@@ -54,7 +59,7 @@ namespace Tetris.Common
 
             engine.ExecuteStatement(statement);
         }
-
+        
         public void Drop()
         {
 
@@ -65,12 +70,12 @@ namespace Tetris.Common
 
         }
 
-        protected void Set(object Value)
+        protected Statement Set(string variableName, object value)
         {
-
+            return null;
         }
 
-        protected object Warn()
+        protected Statement Warn(string message)
         {
             return null;
         }
@@ -95,7 +100,16 @@ namespace Tetris.Common
             return booleanStatement;
         }
 
-        protected StatementBoolean Exists(object Object)
+        protected Statement Return()
+        {
+            return new Statement();
+        }
+
+        protected StatementBoolean Exists(object mappedObj)
+        {
+            return null;
+        }
+        protected StatementBoolean Exists(object mappedObj, string whereClauses)
         {
             return null;
         }
@@ -105,21 +119,16 @@ namespace Tetris.Common
             var @if = new StatementIf(statement);
             @if.Add(statement);
 
-            _blocks.Add(@if);
+            _statements.Add(@if);
 
             return @if;
         }
-
-        protected void Return()
-        {
-
-        }
-
+        
         public override string ToString()
         {
             _body = new StringBuilder();
 
-            foreach (var block in _blocks)
+            foreach (var block in _statements)
                 _body.AppendLine(block.ToString());
 
             return _body.ToString();

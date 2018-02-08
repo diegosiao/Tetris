@@ -15,8 +15,8 @@ namespace Tetris.Mapping
 
             if (attributes != null)
                 foreach (var item in attributes)
-                    if (item is MappedClass)
-                        return ((MappedClass)item).Table;
+                    if (item is DbMappedClass)
+                        return ((DbMappedClass)item).Table;
 
             throw new Exception($"Add the mapping attribute [MappedClass] with table name to '{ Object.GetType().FullName }'");
         }
@@ -29,7 +29,7 @@ namespace Tetris.Mapping
                 return false;
 
             foreach (var attribute in attributes)
-                if (attribute is PrimaryKey)
+                if (attribute is DbPrimaryKey)
                     return true;
 
             return false;
@@ -55,8 +55,8 @@ namespace Tetris.Mapping
 
             foreach (var attribute in attributes)
             {
-                if (attribute is PrimaryKey)
-                    return string.IsNullOrEmpty(((PrimaryKey)attribute).Name) ? property.Name : ((PrimaryKey)attribute).Name;
+                if (attribute is DbPrimaryKey)
+                    return string.IsNullOrEmpty(((DbPrimaryKey)attribute).Name) ? property.Name : ((DbPrimaryKey)attribute).Name;
             }
 
             throw new Exception($"Primary key mapping attribute was not declared for '{ property.DeclaringType.FullName }'");

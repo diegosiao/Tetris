@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\DbProcedureContext.cs" />
     <Compile Include="Oracle\OracleIf.cs" />
     <Compile Include="SqlServer\SqlServerIf.cs" />
     <Compile Include="Statement.cs" />
@@ -56,13 +57,18 @@
     <Compile Include="StatementInsert.cs" />
     <Compile Include="Mapping\DbReadOnly.cs" />
     <Compile Include="Mapping\DbWriteOnly.cs" />
-    <Compile Include="Mapping\MappedClass.cs" />
+    <Compile Include="Mapping\DbMappedClass.cs" />
     <Compile Include="Mapping\MappingUtils.cs" />
-    <Compile Include="Mapping\PrimaryKey.cs" />
+    <Compile Include="Mapping\DbPrimaryKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatementRaw.cs" />
+    <Compile Include="StatementSet.cs" />
     <Compile Include="StatementSql.cs" />
     <Compile Include="TetrisMessage.cs" />
     <Compile Include="TetrisResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MySql\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

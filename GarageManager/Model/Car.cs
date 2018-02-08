@@ -1,12 +1,13 @@
 ﻿using System;
+using Tetris.Common;
 using Tetris.Mapping;
 
 namespace GarageManager.Model
 {
-    [MappedClass(Table = "Cars")]
+    [DbMappedClass(Table = "Cars")]
     public class Car
     {
-        [PrimaryKey]
+        [DbPrimaryKey]
         public long Id { get; set; }
 
         public string Description { get; set; }

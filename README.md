@@ -1,6 +1,6 @@
 # README #
 
-Tetris is a C# framework to enable your code to be translated into database CRUD operations plus procedures and functions interchangeably among the officially supported databases: SQLServer, Oracle and MySQL.
+Tetris is a .NET based framework to enable C# code to be 'transpiled' into database scripts, procedures and functions interchangeably among the officially supported databases: **SQLServer, Oracle and MySQL.**
 
 The most important premise is: The meta code writen once can generate the target database object in **ALL** supported databases. It is an all or nothing approach.
 

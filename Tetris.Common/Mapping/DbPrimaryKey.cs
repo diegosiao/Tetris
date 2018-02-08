@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Mapping
 {
-    public class PrimaryKey : Attribute
+    public class DbPrimaryKey : Attribute
     {
         public string Name { get; set; }
     }

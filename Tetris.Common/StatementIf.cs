@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Tetris.Common
 {
@@ -29,7 +26,7 @@ namespace Tetris.Common
             return this;
         }
 
-        public StatementIf ElseIf()
+        public StatementIf ElseIf(StatementBoolean statement)
         {
 
             return this;

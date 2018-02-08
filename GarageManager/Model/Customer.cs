@@ -4,7 +4,7 @@ using Tetris.Mapping;
 
 namespace GarageManager.Model
 {
-    [MappedClass(Table = "Customers", DefaultOrderByColumn = nameof(Name))]
+    [DbMappedClass(Table = "Customers")]
     public class Customer : Person
     { 
         public string Phone { get; set; }

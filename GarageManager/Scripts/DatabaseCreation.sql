@@ -7,4 +7,12 @@ create table Customers(
 );
 GO
 
+create table CustomersBanned(
+	Id int not null identity(1, 1) primary key,
+	CustomerId int,
+	Creation datetime not null default(getdate())
+);
+GO
+
 select * from Customers;
+select * from CustomersBanned;

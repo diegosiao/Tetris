@@ -15,7 +15,7 @@ namespace GarageManager.ViewModels
         
         public CustomersViewModel()
         {
-            Customers = new ObservableCollection<Customer>(DbEntity<Customer>.GetAll());
+            ///Customers = new ObservableCollection<Customer>(DbEntity<Customer>.GetAll());
         }
     }
 }

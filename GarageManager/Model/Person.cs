@@ -4,7 +4,7 @@ namespace GarageManager.Model
 {
     public class Person
     {
-        [PrimaryKey]
+        [DbPrimaryKey]
         public long Id { get; set; }
 
         public string Name { get; set; }

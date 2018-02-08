@@ -7,43 +7,27 @@ namespace GarageManager.Operations
     {
         protected override string Schema => "dbo";
 
-        protected override string Name => "usp_insert_new_customer";
+        protected override string Name => "usp_customer_and_car_save";
 
-        private readonly Customer Customer;
+        public Customer Customer { get; set; }
 
-        public readonly Car Car;
-
-        public InsertCustomerWithCar(Customer customer, Car car) : base(DbEngineManager.GetEngine(new Customer()))
-        {
-            Customer = customer;
-            Car = car;
-        }
-
-        #region Execution context variables
-        const string IdCustomer = "IdCustomer";
-        const string IdCar = "IdCar";
-        #endregion
+        public Car Car { get; set; }
 
         protected override void Body()
         {
-            Parameters(new DbProcedureParameter[] { });
-            Variables(new DbProcedureVariable[] { });
-            
-            If(IsCustomerAdult()).Then(
-                Insert(Customer).SetWithId(IdCustomer),
-                Insert(Car).SetWithId(IdCar)
-            )
-            .Else(
-                Warn()
+            Declare("vCustomerCars");
+
+            If(Exists(Customer, "WHERE Id IN (SELECT CustomerId FROM CustomersBanned)")).Then(
+                Warn("Sorry, you have been banned from our company."),
+                Return()
             );
-        }
 
-        private StatementBoolean IsCustomerAdult()
-        {
-            var stmt = new StatementBoolean();
-            stmt.Sentence = $"EXISTS(SELECT * FROM { nameof(Customer.Name) })";
-
-            return stmt;
+            If(Exists(Customer).And(NotExists(Car))).Then(
+                
+            ).
+            Else(
+                Warn("Only pre-existing customers can add a car")
+            );
         }
     }
 }
