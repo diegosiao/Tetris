@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Class1.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tetris.Core.Domain\" />
+    <Folder Include="Tetris.Core.OAuth\" />
+    <Folder Include="Tetris.Core.Application\" />
+    <Folder Include="Tetris.Core.Application\Extensions\" />
+    <Folder Include="Tetris.Core.Application\Exceptions\" />
+    <Folder Include="Tetris.Core.Data\" />
+    <Folder Include="Tetris.Core.Data\Query\" />
+    <Folder Include="Tetris.Core.Data\Command\" />
+    <Folder Include="Tetris.Core.Result\" />
+    <Folder Include="Tetris.Core.Domain\Attributes\" />
+  </ItemGroup>
+</Project>
