@@ -1,4 +1,4 @@
-﻿namespace Tetris.Core
+﻿namespace Tetris.Core.Domain
 {
     public static class TetrisClaims
     {

@@ -7,15 +7,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Dynamic;
 using System.Threading.Tasks;
+using Tetris.Core;
+using Tetris.Core.Domain.Attributes;
+using Tetris.Core.Result;
 using static Dapper.SqlMapper;
 
-namespace Movi.Api.Core
+namespace Tetris.Core.Data.Query
 {
-    public class MoviQuery : MoviExecutableBase, IValidatableObject
+    public abstract class TetirsQuery : TetrisExecutableBase, IValidatableObject
     {
         private readonly string procedure;
 
-        public MoviQuery(string procedure = null) 
+        public TetirsQuery(string procedure = null) 
         {
             this.procedure = procedure;
         }
@@ -25,14 +28,14 @@ namespace Movi.Api.Core
             yield return null;
         }
 
-        public async Task<MoviApiResult> Execute()
+        public async Task<TetrisApiResult> Execute()
         {
-            var result = new MoviApiResult();
+            var result = new TetrisApiResult();
 
             try
             {
                 if (Controller?.ModelState != null && !Controller.ModelState.IsValid)
-                    return await Task.FromResult(new MoviApiResult(Controller.ModelState));
+                    return await Task.FromResult(new TetrisApiResult(Controller.ModelState));
 
                 var procedureAttr = GetProcedureAttribute(this);
                 var parameters = new DynamicParameters(this);
@@ -53,10 +56,10 @@ namespace Movi.Api.Core
                 if (procedureAttr.AddOutputsParam)
                     parameters.Add("outputs", null, null, ParameterDirection.Output);
 
-                var connectionString = MoviSettings.ConnectionStrings_Queries;
+                var connectionString = TetrisSettings.ConnectionStrings_Queries;
 
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
-                    connectionString = MoviStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
+                    connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
 
                 using (IDbConnection conn = new MySqlConnection(connectionString))
                 {
@@ -98,7 +101,7 @@ namespace Movi.Api.Core
             return result;
         }
 
-        private void PrepareCollection(MoviProcedureAttribute proceureAttribute, MoviApiResult result)
+        private void PrepareCollection(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
         {
             if (result.Result == null || 
                 proceureAttribute == null || 
@@ -111,7 +114,7 @@ namespace Movi.Api.Core
             result.Result = finalResult;
         }
 
-        private async Task PrepareMultipleCollectionAsync(MoviProcedureAttribute proceureAttribute, MoviApiResult result)
+        private async Task PrepareMultipleCollectionAsync(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
         {
             if (result.Result == null || 
                 proceureAttribute == null)

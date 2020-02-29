@@ -1,13 +1,13 @@
 ﻿using System;
 using Tetris.Core.Exceptions;
 
-namespace Movi.Api.Core
+namespace Tetris.Core.Domain.Attributes
 {
     /// <summary>
     /// A seven characters code uniquely identifying the service
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class MoviServiceCodeAttribute : System.Attribute
+    public class TetrisServiceCodeAttribute : System.Attribute
     {
         /// <summary>
         /// A seven characters code uniquely identifying the service
@@ -20,7 +20,7 @@ namespace Movi.Api.Core
         public string Description { get; set; }
 
         /// <param name="code">A seven characters code uniquely identifying the service</param>
-        public MoviServiceCodeAttribute(string code)
+        public TetrisServiceCodeAttribute(string code)
         {
             if (string.IsNullOrEmpty(code) || code.Length != 7)
                 throw new TetrisException("The service code must have seven aplha numeric characteres");
@@ -29,7 +29,7 @@ namespace Movi.Api.Core
         }
 
         /// <param name="code">A seven characters code uniquely identifying the service</param>
-        public MoviServiceCodeAttribute(string code, string description)
+        public TetrisServiceCodeAttribute(string code, string description)
         {
             if (string.IsNullOrEmpty(code) || code.Length != 7)
                 throw new TetrisException("The service code must have seven aplha numeric characteres");

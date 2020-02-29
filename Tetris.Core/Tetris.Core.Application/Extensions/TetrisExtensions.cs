@@ -7,11 +7,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using Movi.Api.Core;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.Dynamic;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Tetris.Core.Domain;
 
 namespace Tetris.Core.Extensions
 {

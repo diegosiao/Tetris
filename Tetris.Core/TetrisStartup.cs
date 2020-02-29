@@ -13,9 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Tetris.Core.Domain.Attributes;
 using Tetris.Core.Extensions;
 
-namespace Tetris.Core.Domain.Attributes
+namespace Tetris.Core
 {
     public class TetrisStartup
     {
@@ -132,7 +133,7 @@ namespace Tetris.Core.Domain.Attributes
             scriptStr.AppendLine("/**** TETRIS GENERATED SCRIPT ****/");
             try
             {
-                var routes = new List<MoviServiceCodeAttribute>();
+                var routes = new List<TetrisServiceCodeAttribute>();
 
                 foreach (var type in Assembly.GetEntryAssembly().GetTypes())
                 {
@@ -141,7 +142,7 @@ namespace Tetris.Core.Domain.Attributes
                     {
                         var obj = Activator.CreateInstance(type);
 
-                        if (obj is MoviApiController)
+                        if (obj is TetrisApiController)
                         {
                             try
                             {
@@ -149,7 +150,7 @@ namespace Tetris.Core.Domain.Attributes
 
                                 foreach (var method in type.GetMethods())
                                 {
-                                    var routeCode = method.GetCustomAttribute(typeof(MoviServiceCodeAttribute)) as MoviServiceCodeAttribute;
+                                    var routeCode = method.GetCustomAttribute(typeof(TetrisServiceCodeAttribute)) as TetrisServiceCodeAttribute;
 
                                     if (routeCode == null)
                                         continue;

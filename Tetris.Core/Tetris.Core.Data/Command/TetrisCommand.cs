@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Threading.Tasks;
+using Tetris.Core.Result;
 
 namespace Tetris.Core.Data.Command
 {
@@ -16,12 +17,12 @@ namespace Tetris.Core.Data.Command
             yield return null;
         }
 
-        public async Task<MoviApiResult> Execute()
+        public async Task<TetrisApiResult> Execute()
         {
-            var result = new MoviApiResult();
+            var result = new TetrisApiResult();
 
             if (Controller?.ModelState != null && !Controller.ModelState.IsValid)
-                return await Task.FromResult(new MoviApiResult(Controller.ModelState));
+                return await Task.FromResult(new TetrisApiResult(Controller.ModelState));
 
             try
             {
@@ -51,7 +52,7 @@ namespace Tetris.Core.Data.Command
                 var connectionString = TetrisSettings.ConnectionStrings_Commands;
 
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
-                    connectionString = MoviStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
+                    connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
 
                 using (IDbConnection conn = new MySqlConnection(connectionString))
                 {

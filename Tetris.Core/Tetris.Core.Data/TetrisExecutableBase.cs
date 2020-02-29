@@ -5,6 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Tetris.Core.Domain.Attributes;
+using Tetris.Core.Exceptions;
+using Tetris.Core.Result;
+using Tetris.Core.Domain;
 
 namespace Tetris.Core.Data
 {
@@ -16,13 +20,13 @@ namespace Tetris.Core.Data
 
         public object InternalParameters { get; set; }
 
-        public virtual void OnExecuted(MoviApiResult result) {  }
+        public virtual void OnExecuted(TetrisApiResult result) {  }
 
         internal IEnumerable<string> GetOutputsParameterNames()
         {
             foreach (var prop in GetType().GetRuntimeProperties())
             {
-                if (prop.GetCustomAttributes(typeof(MoviOutputParameterAttribute), false).FirstOrDefault() is MoviOutputParameterAttribute output)
+                if (prop.GetCustomAttributes(typeof(TetrisOutputParameterAttribute), false).FirstOrDefault() is TetrisOutputParameterAttribute output)
                 {
                     yield return prop.Name;
                 }
@@ -33,7 +37,7 @@ namespace Tetris.Core.Data
         {
             foreach (var prop in GetType().GetRuntimeProperties())
             {
-                if (prop.GetCustomAttributes(typeof(MoviInputOutputParameterAttribute), false).FirstOrDefault() is MoviInputOutputParameterAttribute output)
+                if (prop.GetCustomAttributes(typeof(TetrisInputOutputParameterAttribute), false).FirstOrDefault() is TetrisInputOutputParameterAttribute output)
                 {
                     yield return prop.Name;
                 }
@@ -78,22 +82,22 @@ namespace Tetris.Core.Data
             }
         }
 
-        internal MoviProcedureAttribute GetProcedureAttribute(object command)
+        internal TetrisProcedureAttribute GetProcedureAttribute(object command)
         {
-            var attributes = command.GetType().GetCustomAttributes(typeof(MoviProcedureAttribute), true);
+            var attributes = command.GetType().GetCustomAttributes(typeof(TetrisProcedureAttribute), true);
 
             if (attributes?.Length != 1)
-                throw new MoviDbException($"A procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
+                throw new TetrisDbException($"A procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
 
-            var attribute = attributes[0] as MoviProcedureAttribute;
+            var attribute = attributes[0] as TetrisProcedureAttribute;
 
             if (string.IsNullOrWhiteSpace(attribute.Procedure))
-                throw new MoviDbException($"O nome da procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
+                throw new TetrisDbException($"O nome da procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
 
             return attribute;
         }
 
-        internal void SetController(MoviApiController controller)
+        internal void SetController(TetrisApiController controller)
         {
             Controller = controller;
         }
