@@ -15,3 +15,7 @@ Please keep in mind that only implementations that considers ALL supported datab
 ### Who do I talk to about this? ###
 
 diegosiao@gmail.com
+grecio@gmail.com
+
+
+![.NET Core](https://github.com/diegosiao/Tetris/workflows/.NET%20Core/badge.svg)
