@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Text.Json;
 using System.Dynamic;
 using JsonSerializer = System.Text.Json.JsonSerializer;
+using Tetris.Core.Tetris.Core.Application.Exceptions;
 
 namespace Tetris.Core.Extensions
 {
@@ -45,9 +46,10 @@ namespace Tetris.Core.Extensions
         public static string Encrypt(this string text)
         {
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Valor de chave inválido.", nameof(key));
+                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.EncryptionSecret)}'. ");
+
             if (string.IsNullOrEmpty(text))
-                throw new ArgumentException("Um texto vazio não pode ser encriptado.", nameof(text));
+                throw new ArgumentException("An empty text cannot be encrypted. ", nameof(text));
 
             var buffer = Encoding.UTF8.GetBytes(text);
             var hash = new SHA512CryptoServiceProvider();
@@ -57,7 +59,7 @@ namespace Tetris.Core.Extensions
             using (var aes = Aes.Create())
             {
                 if (aes == null)
-                    throw new ArgumentException("Parâmetro não pode ser nulo.", nameof(aes));
+                    throw new ArgumentException("An error occurred during encryption. ");
 
                 aes.Key = aesKey;
 
@@ -83,9 +85,10 @@ namespace Tetris.Core.Extensions
         public static string Decrypt(this string encryptedText)
         {
             if (string.IsNullOrEmpty(key))
-                throw new ArgumentException("Valor de chave inválido.", nameof(key));
+                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.EncryptionSecret)}'. ");
+
             if (string.IsNullOrEmpty(encryptedText))
-                throw new ArgumentException("Um texto vazio não pode ser encriptado.", nameof(encryptedText));
+                throw new ArgumentException("An empty text cannot be decrypted. ");
 
             var combined = Convert.FromBase64String(encryptedText);
             var buffer = new byte[combined.Length];
@@ -96,7 +99,7 @@ namespace Tetris.Core.Extensions
             using (var aes = Aes.Create())
             {
                 if (aes == null)
-                    throw new ArgumentException("Parâmetro não pode ser nulo.", nameof(aes));
+                    throw new ArgumentException("An error occurred during encryption. ");
 
                 aes.Key = aesKey;
 

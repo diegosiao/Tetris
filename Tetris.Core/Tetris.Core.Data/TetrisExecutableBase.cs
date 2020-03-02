@@ -94,7 +94,7 @@ namespace Tetris.Core.Data
             if (this is TetrisCommand)
                 return Activator.CreateInstance(TetrisSettings.DatabaseConnectionForCommands, connectionString) as IDbConnection;
 
-            throw new TetrisConfigurationException("It is necessary to determine the Type of the Database Connection for Queries and/or Commands before executing database operations. Ex.: Tetris.Settings.SetTetrisDatabaseConnectionTypeForCommands(typeof(MySqlConnection))");
+            throw new TetrisConfigurationException("It is necessary to determine the Type of the Database Connection for Queries and/or Commands before executing database operations. Ex.: Tetris.Settings.SetTetrisDatabaseConnectionTypeForCommands(typeof(MySqlConnection)). ");
         }
 
         internal TetrisProcedureAttribute GetProcedureAttribute(object command)
@@ -102,12 +102,12 @@ namespace Tetris.Core.Data
             var attributes = command.GetType().GetCustomAttributes(typeof(TetrisProcedureAttribute), true);
 
             if (attributes?.Length != 1)
-                throw new TetrisDbException($"A procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
+                throw new TetrisDbException($"The class '{command.GetType().FullName}' does not specify the attribute [TetrisProcedure]. ");
 
             var attribute = attributes[0] as TetrisProcedureAttribute;
 
             if (string.IsNullOrWhiteSpace(attribute.Procedure))
-                throw new TetrisDbException($"O nome da procedure do comando não foi especificada com o atributo [MoviProcedure] em '{command.GetType().FullName}'");
+                throw new TetrisDbException($"The attribute [TetrisProcedure] in class '{command.GetType().FullName}' does not provide the required procedure name. ");
 
             return attribute;
         }

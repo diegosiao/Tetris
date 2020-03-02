@@ -54,7 +54,7 @@ namespace Tetris.Core.Data.Query
                 if (procedureAttr.AddOutputsParam)
                     parameters.Add("outputs", null, null, ParameterDirection.Output);
 
-                var connectionString = TetrisSettings.ConnectionStrings_Queries;
+                var connectionString = TetrisSettings.ForQueries;
 
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
                     connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
@@ -65,15 +65,15 @@ namespace Tetris.Core.Data.Query
 
                     switch (procedureAttr.ResultType)
                     {
-                        case MoviQueryResultType.MultipleCollections:
+                        case TetrisQueryResultType.MultipleCollections:
                             result.Result = await conn.QueryMultipleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
                             await PrepareMultipleCollectionAsync(procedureAttr, result);
                             break;
-                        case MoviQueryResultType.Collection:
+                        case TetrisQueryResultType.Collection:
                             result.Result = await conn.QueryAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
                             PrepareCollection(procedureAttr, result);
                             break;
-                        case MoviQueryResultType.Single:
+                        case TetrisQueryResultType.Single:
                             result.Result = await conn.QuerySingleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
                             PrepareCollection(procedureAttr, result);
                             break;

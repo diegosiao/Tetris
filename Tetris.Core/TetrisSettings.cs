@@ -7,9 +7,9 @@ namespace Tetris.Core
     {
         internal static string EncryptionSecret { get; private set; }
 
-        public static string ConnectionStrings_Commands { get; private set; }
+        public static string ForCommands { get; private set; }
 
-        public static string ConnectionStrings_Queries { get; private set; }
+        public static string ForQueries { get; private set; }
 
         internal static string FacebookCheckTokenUrl { get; private set; }
 
@@ -23,10 +23,22 @@ namespace Tetris.Core
 
         public static Type DatabaseConnectionForCommands { get; private set; }
 
+        public static string[] CorsAllowedOrigins { get; private set; }
+
         public static void LoadConfiguration(IConfiguration configuration)
         {
-            ConnectionStrings_Commands = configuration.GetString("ConnectionStrings", "commands");
-            ConnectionStrings_Queries = configuration.GetString("ConnectionStrings", "queries");
+            ForCommands = configuration.GetString("ConnectionStrings", nameof(ForCommands));
+            ForQueries = configuration.GetString("ConnectionStrings", nameof(ForQueries));
+
+            EncryptionSecret = configuration.GetString("AppSettings", nameof(EncryptionSecret));
+
+            FacebookAppId = configuration.GetString("AppSettings", nameof(FacebookAppId));
+            FacebookAppSecret = configuration.GetString("AppSettings", nameof(FacebookAppSecret));
+            FacebookCheckTokenUrl = configuration.GetString("AppSettings", nameof(FacebookAppSecret));
+
+            GoogleCheckTokenUrl = configuration.GetString("AppSettings", nameof(GoogleCheckTokenUrl));
+
+            CorsAllowedOrigins = configuration.GetStringArray(nameof(CorsAllowedOrigins));
         }
 
         public static void SetTetrisDatabaseConnectionTypeForCommands(Type type)
@@ -52,6 +64,21 @@ namespace Tetris.Core
                 throw new InvalidOperationException($"The section '{ section }' does not contains the key '{ key }' in the configuration file of your application");
 
             return value;
+        }
+
+        private static string[] GetStringArray(this IConfiguration configuration, string key, bool required = false)
+        {
+            var s = configuration.GetSection("AppSettings");
+
+            if (!s.Exists() && required)
+                throw new InvalidOperationException($"The section 'AppSettings' is not present in the configuration file of your application");
+
+            var value = s[key];
+
+            if (string.IsNullOrEmpty(value) && required)
+                throw new InvalidOperationException($"The section 'AppSettings' does not contains the key '{ key }' in the configuration file of your application");
+
+            return value.Split(",", StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Tetris.Core.Domain.Attributes;
-using Tetris.Core.Extensions;
 
 namespace Tetris.Core
 {
@@ -30,7 +29,6 @@ namespace Tetris.Core
 
         public readonly string CorsAllowedOrigins = "_tetris_cors_config";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -64,8 +62,7 @@ namespace Tetris.Core
                 options.AddPolicy(CorsAllowedOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("https://localhost",
-                                        "https://movimotors.com.br")
+                    builder.WithOrigins(TetrisSettings.CorsAllowedOrigins)
                            .AllowAnyOrigin()
                            .AllowAnyHeader()
                            .AllowAnyMethod();
@@ -73,7 +70,6 @@ namespace Tetris.Core
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

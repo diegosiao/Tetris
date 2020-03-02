@@ -42,10 +42,10 @@ namespace Tetris.Core.Domain.Attributes
         /// <summary>
         /// 
         /// </summary>
-        public MoviQueryResultType ResultType { get; set; }
+        public TetrisQueryResultType ResultType { get; set; }
 
         /// <summary>
-        /// Describes the 'MoviCommand' or 'MoviQuery' database procedure associated with it.
+        /// Describes the database command or query database procedure associated with it.
         /// </summary>
         /// <param name="procedure">The name of the procedure associated.</param>
         /// <param name="connectionStringKey">If not one of the default specified in the configuration file 'ConnectionsString' section: 'queries' and 'commands'.</param>
@@ -61,7 +61,7 @@ namespace Tetris.Core.Domain.Attributes
             string connectionStringKey = null, 
             bool addOutputsParam = true, 
             bool addSessionIdParam = true, 
-            MoviQueryResultType resultType = MoviQueryResultType.Collection,
+            TetrisQueryResultType resultType = TetrisQueryResultType.Collection,
             string resultNames = null)
         {
             Procedure = procedure;
@@ -76,7 +76,7 @@ namespace Tetris.Core.Domain.Attributes
         }
     }
 
-    public enum MoviQueryResultType 
+    public enum TetrisQueryResultType 
     { 
         Collection,
         MultipleCollections,

@@ -6,7 +6,10 @@ using Newtonsoft.Json.Linq;
 
 namespace Tetris.Core.OAuth
 {
-    public static class MoviOAuthGoogle
+    /// <summary>
+    /// Just a lab thing
+    /// </summary>
+    public static class TetrisOAuthGoogle
     {
         public static async Task<bool> CheckTokenAsync(string token)
         {

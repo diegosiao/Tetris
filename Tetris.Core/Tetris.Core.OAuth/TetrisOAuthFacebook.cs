@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Tetris.Core.OAuth
 {
-    public static class MoviOAuthFacebook
+    /// <summary>
+    /// Just a lab thing
+    /// </summary>
+    public static class TetrisOAuthFacebook
     {
         public static async Task<bool> CheckTokenAsync(string token)
         {
