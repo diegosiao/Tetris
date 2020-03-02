@@ -5,7 +5,7 @@ namespace Tetris.Core.Domain.Attributes
 {
     /// <summary>
     /// Use to indicate that a class is a query or command stored procedure representation.
-    /// <para>The class needs to inherit from MoviCommandBase or MoviQueryBase.</para>
+    /// <para>The class needs to inherit from TetrisCommandBase or TetrisQueryBase.</para>
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class TetrisProcedureAttribute : Attribute
@@ -16,7 +16,7 @@ namespace Tetris.Core.Domain.Attributes
         internal string Procedure { get; private set; }
 
         /// <summary>
-        /// Use this property to override the default MoviCommandBase or MoviQueryBase connection string associated.
+        /// Use this property to override the default TetrisCommandBase or TetrisQueryBase connection string associated.
         /// </summary>
         internal string ConnectionStringKey { get; private set; }
 

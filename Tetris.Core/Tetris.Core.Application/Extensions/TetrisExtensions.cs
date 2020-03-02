@@ -138,10 +138,9 @@ namespace Tetris.Core.Extensions
         }
 
         /// <summary>
-        /// By default, pascalize converts strings to UpperCamelCase also removing underscores
+        /// Pascalize converts strings to UpperCamelCase also removing underscores
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">Text to be transformed</param>
         public static string Pascalize(this string input)
         {
             return Regex.Replace(input, "(?:^|_)(.)", match => match.Groups[1].Value.ToUpper());
@@ -150,8 +149,7 @@ namespace Tetris.Core.Extensions
         /// <summary>
         /// Same as Pascalize except that the first character is lower case
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+        /// <param name="input">Text to be transformed</param>
         public static string Camelize(this string input)
         {
             var word = Pascalize(input);
