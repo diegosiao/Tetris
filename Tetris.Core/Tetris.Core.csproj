@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageId>TetrisApi</PackageId>
+    <PackageId>Tetris</PackageId>
     <PackageVersion>0.5</PackageVersion>
     <Authors>Diego Morais, Grecio Beline</Authors>
     <Description>A free, lightweight and simple to use .NET tool to help you build APIS. You will love.</Description>
