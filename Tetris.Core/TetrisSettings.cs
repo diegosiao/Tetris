@@ -5,11 +5,19 @@ namespace Tetris.Core
 {
     public static class TetrisSettings
     {
-        public static string EncryptionSecret { get; private set; }
+        internal static string EncryptionSecret { get; private set; }
 
         public static string ConnectionStrings_Commands { get; private set; }
 
         public static string ConnectionStrings_Queries { get; private set; }
+
+        internal static string FacebookCheckTokenUrl { get; private set; }
+
+        internal static string FacebookAppId { get; private set; }
+
+        internal static string FacebookAppSecret { get; private set; }
+
+        internal static string GoogleCheckTokenUrl { get; private set; }
 
         public static Type DatabaseConnectionForQueries { get; private set; }
 
