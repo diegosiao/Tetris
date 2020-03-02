@@ -1,5 +1,7 @@
 # README #
 
+![.NET Core](https://github.com/diegosiao/Tetris/workflows/.NET%20Core/badge.svg) ![publish to nuget](https://github.com/diegosiao/Tetris/workflows/publish%20to%20nuget/badge.svg)
+
 ### Putting the building blocks of your organization together ###
 
 Tetris is an Electron application and a .NET Core based framework to enable people with no coding skill to create and manage Micro Services via Web APIs.
@@ -16,6 +18,3 @@ Please keep in mind that only implementations that considers ALL supported datab
 
 diegosiao@gmail.com
 grecio@gmail.com
-
-
-![.NET Core](https://github.com/diegosiao/Tetris/workflows/.NET%20Core/badge.svg) ![publish to nuget](https://github.com/diegosiao/Tetris/workflows/publish%20to%20nuget/badge.svg)
