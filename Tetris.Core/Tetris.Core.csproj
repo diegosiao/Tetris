@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>Tetris</PackageId>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <Authors>Diego Morais, Grecio Beline</Authors>
     <Description>A free, lightweight and simple to use .NET tool to help you to build APIs.</Description>
   </PropertyGroup>
