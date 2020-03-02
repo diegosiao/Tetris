@@ -49,7 +49,7 @@ namespace Tetris.Core
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.Secret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.EncryptionSecret)),
                     };
                 });
 
@@ -103,26 +103,6 @@ namespace Tetris.Core
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup(typeof(T));
-                })
-                .ConfigureTetrisAppSettings()
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    Console.WriteLine("Diretório base da aplicação: " + AppDomain.CurrentDomain.BaseDirectory);
-
-                    switch (hostingContext.HostingEnvironment.EnvironmentName)
-                    {
-                        case "Production":
-                            config.AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}appsettings.core.Production.json", optional: false);
-                            break;
-                        //case "Development":
-                        //    config.AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}appsettings.core.Development.json", optional: false);
-                        //    break;
-                        default:
-                            config.AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}appsettings.core.json", optional: false);
-                            break;
-                    }
-
-                    config.AddEnvironmentVariables();
                 });
         }
 
@@ -162,7 +142,7 @@ namespace Tetris.Core
 $@"INSERT INTO `sys_securedroutes`
 (`idapiservico`, `caminhoamigavel`, `api`, `method`, `controller`, `action`, `codigo`, `descricao`)
 VALUES
-(uuid(),
+({Guid.NewGuid().ToString()},
 '{routeController?.Name ?? "-"} / {routeCode?.Description ?? "-"}',
 '{type.Assembly.GetCustomAttribute<AssemblyDefaultAliasAttribute>()?.DefaultAlias ?? type.Assembly.GetName().FullName.Split(',')[0]}',
 '{routeVerb?.GetType()?.Name.Substring(4).Replace("Attribute", "")}',

@@ -1,47 +1,19 @@
 ﻿using System;
-using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Text.Json;
 using System.Dynamic;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-using Tetris.Core.Domain;
 
 namespace Tetris.Core.Extensions
 {
     public static class TetrisExtensions
     {
-        private static readonly string key = TetrisSettings.Secret;
-
-        public static IHostBuilder ConfigureTetrisAppSettings(this IHostBuilder hostBuilder)
-        {
-            hostBuilder.ConfigureAppConfiguration((hostingContext, config) =>
-             {
-                 var env = hostingContext.HostingEnvironment;
-                 var sharedFolder = Path.Combine(env.ContentRootPath, env.IsProduction() ? @"../.." : "..", "Movi.Api.Core");
-
-                 Console.WriteLine("Arquivo de configuração core: " + Path.Combine(sharedFolder, $"appsettings.core.{env.EnvironmentName}.json"));
-                 Console.WriteLine("Enviroment name: " + env.EnvironmentName);
-
-                 config
-                      .AddJsonFile("appsettings.core.json", optional: true)
-                      .AddJsonFile("appsettings.json", optional: true)
-
-                      //Add or override with development values, if present
-                      .AddJsonFile(Path.Combine(sharedFolder, $"appsettings.core.{env.EnvironmentName}.json"), optional: true)
-                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-                 config.AddEnvironmentVariables();
-             });
-
-            return hostBuilder;
-        }
+        private static readonly string key = TetrisSettings.EncryptionSecret;
 
         public static string TryToSerialize(this object obj)
         {
@@ -160,16 +132,6 @@ namespace Tetris.Core.Extensions
                     sbReturn.Append(letter);
             }
             return sbReturn.ToString();
-        }
-
-        internal static void SetTenantId(this IDbConnection connection, TetrisUser user)
-        {
-            /*
-            if (user?.TenantId == null)
-                return;
-
-            connection.Execute("usp_settenantid", new { tenantid = user.TenantId }, commandType: CommandType.StoredProcedure);
-            */           
         }
 
         /// <summary>

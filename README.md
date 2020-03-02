@@ -1,20 +1,30 @@
-# README #
+# Tetris .Net Core Library #
 
 ![.NET Core](https://github.com/diegosiao/Tetris/workflows/.NET%20Core/badge.svg) ![Nuget](https://github.com/diegosiao/Tetris/workflows/Nuget/badge.svg)
 
-### Putting the building blocks of your organization together ###
+## What is it for?
 
-Tetris is an Electron application and a .NET Core based framework to enable people with no coding skill to create and manage Micro Services via Web APIs.
+Tetris is a .NET Core based library to help you to build ASP.NET Core Web APIs.
 
-Using a simple approach of 'blocks' representing persons, rules and operations of an organization, use this tool to connect the software development team with people managing the business.
+Based on [CQRS](https://martinfowler.com/bliki/CQRS.html) - Command and Queries Responsibility Segregation - it helps you to build scalable backend applications.
 
-**Note: this project is in development and should not be used in production enviroments.**
+⚠️ **Note: this project is in development and should not be used in production enviroments.** ⚠️
 
-### Contribution guidelines ###
+## Nuget Package 
 
-Please keep in mind that only implementations that considers ALL supported databases will be accepted.
+In Package Manager Console of you project, execute:
 
-### Who do I talk to about this? ###
+`Install-Package Tetris`
 
-diegosiao@gmail.com
-grecio@gmail.com
+## Required Settings
+
+Configuration Section | Key | Description
+--- | --- | --- | ---
+AppSettings | Tetris_EncriptionKey | Secret to be used in simple encryption and decryption operations
+ConnectionStrings | Tetris_CommandsConnectionString | File path containing version info, relative to repository root
+ConnectionStrings | Tetris_QueriesConnectionString | Regex pattern to extract version info in a capturing group
+
+## Who do I talk to about this? ##
+
+Diego Morais - diegosiao@gmail.com
+Grecio Beline - grecio@gmail.com
