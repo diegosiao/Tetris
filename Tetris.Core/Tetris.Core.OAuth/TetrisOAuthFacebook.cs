@@ -15,7 +15,7 @@ namespace Tetris.Core.OAuth
                 using var client = new HttpClient();
                 var url = TetrisSettings.FacebookCheckTokenUrl
                                         .Replace("{client_token}", token)
-                                        .Replace("{movi_access_token}", $"{TetrisSettings.FacebookAppId}|{TetrisSettings.FacebookAppSecret}");
+                                        .Replace("{access_token}", $"{TetrisSettings.FacebookAppId}|{TetrisSettings.FacebookAppSecret}");
 
                 var response = await client.GetAsync(url);
 
