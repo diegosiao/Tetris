@@ -27,6 +27,10 @@ namespace Tetris.Core
         public static string ConnectionStrings_Commands { get; private set; }
         public static string ConnectionStrings_Queries { get; private set; }
 
+        public static Type DatabaseConnectionForQueries { get; private set; }
+
+        public static Type DatabaseConnectionForCommands { get; private set; }
+
         public static string SmsServiceProvider { get; private set; }
         public static string SmsServiceProvider_KingSmsUrl { get; private set; }
 
@@ -60,6 +64,16 @@ namespace Tetris.Core
 
             ConnectionStrings_Commands = configuration.GetString("ConnectionStrings", "commands");
             ConnectionStrings_Queries = configuration.GetString("ConnectionStrings", "queries");
+        }
+
+        public static void SetTetrisDatabaseConnectionTypeForCommands(Type type)
+        {
+            DatabaseConnectionForCommands = type;
+        }
+
+        public static void SetTetrisDatabaseConnectionTypeForQueries(Type type)
+        {
+            DatabaseConnectionForQueries = type;
         }
 
         private static string GetString(this IConfiguration configuration, string section, string key)

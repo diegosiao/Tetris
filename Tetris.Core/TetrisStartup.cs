@@ -28,7 +28,7 @@ namespace Tetris.Core
 
         public static IConfiguration Configuration { get; private set; }
 
-        public readonly string CorsAllowedOrigins = "_movi_cors_config";
+        public readonly string CorsAllowedOrigins = "_tetris_cors_config";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -159,7 +159,7 @@ namespace Tetris.Core
                                     var routeMethod = method.GetCustomAttribute(typeof(RouteAttribute)) as RouteAttribute;
 
                                     scriptStr.AppendLine(
-$@"INSERT INTO `mauhel`.`seg_apiservico`
+$@"INSERT INTO `sys_securedroutes`
 (`idapiservico`, `caminhoamigavel`, `api`, `method`, `controller`, `action`, `codigo`, `descricao`)
 VALUES
 (uuid(),

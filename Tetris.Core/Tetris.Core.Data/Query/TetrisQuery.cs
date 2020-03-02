@@ -1,24 +1,22 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Dynamic;
 using System.Threading.Tasks;
-using Tetris.Core;
 using Tetris.Core.Domain.Attributes;
 using Tetris.Core.Result;
 using static Dapper.SqlMapper;
 
 namespace Tetris.Core.Data.Query
 {
-    public abstract class TetirsQuery : TetrisExecutableBase, IValidatableObject
+    public abstract class TetrisQuery : TetrisExecutableBase, IValidatableObject
     {
         private readonly string procedure;
 
-        public TetirsQuery(string procedure = null) 
+        public TetrisQuery(string procedure = null) 
         {
             this.procedure = procedure;
         }
@@ -61,7 +59,7 @@ namespace Tetris.Core.Data.Query
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
                     connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
 
-                using (IDbConnection conn = new MySqlConnection(connectionString))
+                using (IDbConnection conn = GetDatabaseConnection(connectionString))
                 {
                     conn.Open();
 

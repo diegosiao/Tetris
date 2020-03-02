@@ -9,6 +9,10 @@ using Tetris.Core.Domain.Attributes;
 using Tetris.Core.Exceptions;
 using Tetris.Core.Result;
 using Tetris.Core.Domain;
+using System.Data;
+using Tetris.Core.Data.Query;
+using Tetris.Core.Data.Command;
+using Tetris.Core.Tetris.Core.Application.Exceptions;
 
 namespace Tetris.Core.Data
 {
@@ -80,6 +84,17 @@ namespace Tetris.Core.Data
                     Debugger.Log(1, "DB", $"Erro carregando os outputs: {ex.Message}");
                 }
             }
+        }
+
+        protected IDbConnection GetDatabaseConnection(string connectionString)
+        {
+            if (this is TetrisQuery)
+                return Activator.CreateInstance(TetrisSettings.DatabaseConnectionForQueries, connectionString) as IDbConnection;
+
+            if (this is TetrisCommand)
+                return Activator.CreateInstance(TetrisSettings.DatabaseConnectionForCommands, connectionString) as IDbConnection;
+
+            throw new TetrisConfigurationException("It is necessary to determine the Type of the Database Connection for Queries and/or Commands before executing database operations. Ex.: Tetris.Settings.SetTetrisDatabaseConnectionTypeForCommands(typeof(MySqlConnection))");
         }
 
         internal TetrisProcedureAttribute GetProcedureAttribute(object command)

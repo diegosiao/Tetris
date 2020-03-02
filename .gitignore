@@ -235,5 +235,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/GarageManager/bin/Debug
-/GarageManager/obj/Debug
+/Tetris.Core/obj
+/Tetris.Core/bin/Debug/netcoreapp3.1

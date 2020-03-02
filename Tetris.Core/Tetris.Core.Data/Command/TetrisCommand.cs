@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -54,7 +53,7 @@ namespace Tetris.Core.Data.Command
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
                     connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);
 
-                using (IDbConnection conn = new MySqlConnection(connectionString))
+                using (IDbConnection conn = GetDatabaseConnection(connectionString))
                 {
                     conn.Open();
 
