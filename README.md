@@ -45,7 +45,7 @@ AppSettings | Tetris_EncryptionKey | Secret to be used in simple encryption and 
 
 ### 'Per Operation' setup
 
-1. Choose and classify a database procedure as a command (WRITE and READ) or query (READONLY);
+1. Choose and classify a database procedure as a command (READ/WRITE) or query (READONLY);
 
 2. Create a class that will represent the choosen database procedure and specify the 'TetrisProcedure' attribute and make it inherit from 'TetrisCommand' or 'TetrisQuery' class. Properties will act like parameters.
 
