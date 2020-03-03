@@ -3,13 +3,25 @@ using System.Text.RegularExpressions;
 
 namespace Tetris.Core.Domain.Attributes
 {
+    /// <summary>
+    /// A pt-BR thing...
+    /// </summary>
     public class CelularAttribute : ValidationAttribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="errorMessage"></param>
         public CelularAttribute(string errorMessage = "Informe um número de celular com DDD") : base(errorMessage)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool IsValid(object value)
         {
             if (value != null && !(value is string))

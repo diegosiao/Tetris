@@ -135,17 +135,26 @@ namespace Tetris.Core
                                     var routeMethod = method.GetCustomAttribute(typeof(RouteAttribute)) as RouteAttribute;
 
                                     scriptStr.AppendLine(
-$@"INSERT INTO `sys_securedroutes`
-(`idapiservico`, `caminhoamigavel`, `api`, `method`, `controller`, `action`, `codigo`, `descricao`)
-VALUES
-({Guid.NewGuid().ToString()},
-'{routeController?.Name ?? "-"} / {routeCode?.Description ?? "-"}',
-'{type.Assembly.GetCustomAttribute<AssemblyDefaultAliasAttribute>()?.DefaultAlias ?? type.Assembly.GetName().FullName.Split(',')[0]}',
-'{routeVerb?.GetType()?.Name.Substring(4).Replace("Attribute", "")}',
-'{routeController?.Name ?? "-"}',
-'{routeCode?.Description ?? "-"}',
-'{routeCode?.Code ?? "-" }',
-'{routeMethod?.Name ?? "-"}');");
+                                        $"INSERT INTO `sys_securedroutes` (" +
+                                        "    `idapiservico`,  " +
+                                        "    `caminhoamigavel`,  " +
+                                        "    `api`,  " +
+                                        "    `method`,  " +
+                                        "    `controller`,  " +
+                                        "    `action`,  " +
+                                        "    `codigo`,  " +
+                                        "    `descricao` " +
+                                        ") " +
+                                        "VALUES ( " +
+                                        $"    '{Guid.NewGuid().ToString()}', " +
+                                        $"    '{routeController?.Name ?? " -"} / {routeCode?.Description ?? "- "}', " +
+                                        $"    '{type.Assembly.GetCustomAttribute<AssemblyDefaultAliasAttribute>()?.DefaultAlias ?? type.Assembly.GetName().FullName.Split(',')[0]}', " +
+                                        $"    '{routeVerb?.GetType()?.Name.Substring(4).Replace("Attribute", "")}', " +
+                                        $"    '{routeController?.Name ?? " - "}', " +
+                                        $"    '{routeCode?.Description ?? " - "}', " +
+                                        $"    '{routeCode?.Code ?? " - " }', " +
+                                        $"    '{routeMethod?.Name ?? " - "}' " +
+                                        ");");
                                 }
                             }
                             catch (Exception ex)

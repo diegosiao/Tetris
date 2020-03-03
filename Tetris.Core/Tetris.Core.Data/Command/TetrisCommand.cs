@@ -8,13 +8,25 @@ using System.Threading.Tasks;
 
 namespace Tetris.Core.Data.Command
 {
+    /// <summary>
+    /// Represents a database read or write operation. Your commands should inherit from this class.
+    /// <para>For more information go to <see href="https://github.com/diegosiao/Tetris">https://github.com/diegosiao/Tetris</see></para>
+    /// </summary>
     public abstract class TetrisCommand : TetrisExecutableBase, IValidatableObject
     {
+        /// <summary>
+        /// Overwrite this method to implement custom validation before database executions
+        /// </summary>
+        /// <param name="validationContext"></param>
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             yield return null;
         }
 
+        /// <summary>
+        /// Call this method in your controller. The properties of the class are treated as parameters of the procedure or SQL associated with this command.
+        /// </summary>
+        /// <returns></returns>
         public async Task<TetrisApiResult> Execute()
         {
             var result = new TetrisApiResult();
@@ -71,7 +83,7 @@ namespace Tetris.Core.Data.Command
             catch (Exception ex)
             {
                 result.Succeded = false;
-                result.Outputs.TryAdd("exception", new { Message = $"Desculpe, ocorreu um erro durante o processamento de sua requisição. {ex.Message}" });
+                result.Outputs.TryAdd("exception", new { Message = $"Oops... Something bad happened: {ex.Message}" });
             }
 
             return result;

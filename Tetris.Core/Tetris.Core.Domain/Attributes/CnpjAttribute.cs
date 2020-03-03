@@ -3,15 +3,28 @@ using System.Text.RegularExpressions;
 
 namespace Tetris.Core.Domain.Attributes
 {
+    /// <summary>
+    /// A pt-BR thing...
+    /// </summary>
     public class CnpjAttribute : ValidationAttribute
     {
         private bool _accetptsMask;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <param name="acceptsMask"></param>
         public CnpjAttribute(string errorMessage = "Informe um CNPJ válido", bool acceptsMask = false) : base(errorMessage)
         {
             _accetptsMask = acceptsMask;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool IsValid(object value)
         {
             if (value != null && !(value is string))

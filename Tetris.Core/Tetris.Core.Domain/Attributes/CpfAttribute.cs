@@ -3,15 +3,28 @@ using System.Text.RegularExpressions;
 
 namespace Tetris.Core.Domain.Attributes
 {
+    /// <summary>
+    /// A pt-BR thing...
+    /// </summary>
     public class CpfAttribute : ValidationAttribute
     {
         private bool _accetptsMask;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="errorMessage"></param>
+        /// <param name="acceptsMask"></param>
         public CpfAttribute(string errorMessage = "Informe um CPF válido", bool acceptsMask = false) : base(errorMessage)
         {
             _accetptsMask = acceptsMask;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool IsValid(object value)
         {
             if (value != null && !(value is string))
@@ -34,6 +47,11 @@ namespace Tetris.Core.Domain.Attributes
             return IsValidCpf(cpf);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cpf"></param>
+        /// <returns></returns>
         public static bool IsValidCpf(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };

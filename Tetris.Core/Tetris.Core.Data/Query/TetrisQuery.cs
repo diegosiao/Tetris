@@ -7,24 +7,28 @@ using System.Data;
 using System.Dynamic;
 using System.Threading.Tasks;
 using Tetris.Core.Domain.Attributes;
-using static Dapper.SqlMapper;
 
 namespace Tetris.Core.Data.Query
 {
+    /// <summary>
+    /// Represents a database readonly operation. Your queries should inherit from this class.
+    /// <para>For more information go to <see href="https://github.com/diegosiao/Tetris">https://github.com/diegosiao/Tetris</see></para>
+    /// </summary>
     public abstract class TetrisQuery : TetrisExecutableBase, IValidatableObject
     {
-        private readonly string procedure;
-
-        public TetrisQuery(string procedure = null) 
-        {
-            this.procedure = procedure;
-        }
-
+        /// <summary>
+        /// Overwrite this method to implement custom validation before database executions
+        /// </summary>
+        /// <param name="validationContext"></param>
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             yield return null;
         }
 
+        /// <summary>
+        /// Call this method in your controller. The properties of the class are treated as parameters of the procedure or SQL associated with this query.
+        /// </summary>
+        /// <returns></returns>
         public async Task<TetrisApiResult> Execute()
         {
             var result = new TetrisApiResult();
@@ -65,15 +69,15 @@ namespace Tetris.Core.Data.Query
                     switch (procedureAttr.ResultType)
                     {
                         case TetrisQueryResultType.MultipleCollections:
-                            result.Result = await conn.QueryMultipleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
+                            result.Result = await conn.QueryMultipleAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
                             await PrepareMultipleCollectionAsync(procedureAttr, result);
                             break;
                         case TetrisQueryResultType.Collection:
-                            result.Result = await conn.QueryAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
+                            result.Result = await conn.QueryAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
                             PrepareCollection(procedureAttr, result);
                             break;
                         case TetrisQueryResultType.Single:
-                            result.Result = await conn.QuerySingleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
+                            result.Result = await conn.QuerySingleAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
                             PrepareCollection(procedureAttr, result);
                             break;
                     }
@@ -92,7 +96,7 @@ namespace Tetris.Core.Data.Query
             catch (Exception ex)
             {
                 result.Succeded = false;
-                result.Outputs.TryAdd("exception", new { Message = $"Desculpe, ocorreu um erro durante o processamento de sua requisição. {ex.Message}" });
+                result.Outputs.TryAdd("exception", new { Message = $"Oops... Something bad happened: {ex.Message}" });
             }
 
             return result;
@@ -119,7 +123,7 @@ namespace Tetris.Core.Data.Query
 
             var finalResult = new ExpandoObject();
 
-            var gridReader = (GridReader)result.Result;
+            var gridReader = (SqlMapper.GridReader)result.Result;
 
             int i = 0;
             while (!gridReader.IsConsumed)
