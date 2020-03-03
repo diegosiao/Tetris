@@ -13,7 +13,7 @@ The Tetris library aims to provide out of the box support for your ASP.NET Core 
 - Integrated .NET Component Model Validation
 - JWT Token based authentication
 
-⚠️ **Note: this project is in development and should not be used in production enviroments.** ⚠️
+⚠️ **IMPORTANT: this project is in development and should not be used in production enviroments.** ⚠️
 
 ## Nuget Package 
 
@@ -33,7 +33,30 @@ ConnectionStrings | Tetris_CommandsConnectionString | The connection string for 
 ConnectionStrings | Tetris_QueriesConnectionString | The connection string for readonly database commands
 AppSettings | Tetris_EncryptionKey | Secret to be used in simple encryption and decryption operations
 
+## Getting Started
+
+### Application setup
+
+1. Reference the Tetris Nuget Package in your ASP.NET Core Web API application
+
+2. Configure the Startup class
+
+3. Set the required settings described above in the configuration file
+
+### 'Per Operation' setup
+
+1. Choose and classify a database procedure as a command (WRITE and READ) or query (READONLY);
+
+2. Create a class that will represent the choosen database procedure and specify the 'TetrisProcedure' attribute and make it inherit from 'TetrisCommand' or 'TetrisQuery' class. Properties will act like parameters.
+
+### Controller setup
+
+1. Make your controller inherit 'TetrisApiController'
+
+2. Declare your command or query representing class as an input parameter and execute it
+
 ## Who do I talk to about this?
 
 Diego Morais - diegosiao@gmail.com
+
 Grecio Beline - grecio@gmail.com
