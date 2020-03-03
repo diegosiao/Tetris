@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using Tetris.Core.Domain.Attributes;
 using Tetris.Core.Exceptions;
-using Tetris.Core.Result;
 using Tetris.Core.Domain;
 using System.Data;
 using Tetris.Core.Data.Query;

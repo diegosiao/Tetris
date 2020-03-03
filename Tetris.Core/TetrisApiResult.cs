@@ -5,7 +5,7 @@ using System.Dynamic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Tetris.Core.Extensions;
 
-namespace Tetris.Core.Result
+namespace Tetris.Core
 {
     public class TetrisApiResult
     {

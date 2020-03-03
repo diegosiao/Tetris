@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
-namespace Tetris.Core.Result
+namespace Tetris.Core
 {
     public class TetrisApiResultOutput
     {

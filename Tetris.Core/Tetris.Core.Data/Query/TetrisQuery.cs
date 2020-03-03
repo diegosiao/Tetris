@@ -7,7 +7,6 @@ using System.Data;
 using System.Dynamic;
 using System.Threading.Tasks;
 using Tetris.Core.Domain.Attributes;
-using Tetris.Core.Result;
 using static Dapper.SqlMapper;
 
 namespace Tetris.Core.Data.Query

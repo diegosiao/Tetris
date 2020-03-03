@@ -18,6 +18,5 @@
     <Folder Include="Tetris.Core.Data\" />
     <Folder Include="Tetris.Core.Data\Query\" />
     <Folder Include="Tetris.Core.Data\Command\" />
-    <Folder Include="Tetris.Core.Result\" />
   </ItemGroup>
 </Project>
