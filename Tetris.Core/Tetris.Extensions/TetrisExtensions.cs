@@ -8,10 +8,13 @@ using Newtonsoft.Json;
 using System.Text.Json;
 using System.Dynamic;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-using Tetris.Core.Tetris.Core.Application.Exceptions;
+using Tetris.Exceptions;
 
-namespace Tetris.Core.Extensions
+namespace Tetris.Extensions
 {
+    /// <summary>
+    /// Holds general use extensions
+    /// </summary>
     public static class TetrisExtensions
     {
         private static readonly string key = TetrisSettings.EncryptionSecret;
@@ -43,6 +46,11 @@ namespace Tetris.Core.Extensions
             }
         }
 
+        /// <summary>
+        /// Encrypts the string returning the string Base64 representation of the encryption
+        /// </summary>
+        /// <param name="text">The text to be encrypted</param>
+        /// <returns></returns>
         public static string Encrypt(this string text)
         {
             if (string.IsNullOrEmpty(key))
@@ -82,6 +90,11 @@ namespace Tetris.Core.Extensions
             }
         }
 
+        /// <summary>
+        /// Decrypts the Base64 representation string of a previous encrypted string
+        /// </summary>
+        /// <param name="encryptedText">The text to be decrypted</param>
+        /// <returns></returns>
         public static string Decrypt(this string encryptedText)
         {
             if (string.IsNullOrEmpty(key))
@@ -125,6 +138,11 @@ namespace Tetris.Core.Extensions
             }
         }
 
+        /// <summary>
+        /// Remove accents replacing by a unicode 'category' letter that represents them
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string RemoveAccents(this string text)
         {
             StringBuilder sbReturn = new StringBuilder();
@@ -156,6 +174,11 @@ namespace Tetris.Core.Extensions
             return word.Length > 0 ? word.Substring(0, 1).ToLower() + word.Substring(1) : "";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="valor"></param>
+        /// <returns></returns>
         public static string ToExtenso(this decimal valor)
         {
             if (valor <= 0 | valor >= 1000000000000000)
@@ -224,7 +247,7 @@ namespace Tetris.Core.Extensions
             }
         }
 
-        static string EscrevaParte(decimal valor)
+        private static string EscrevaParte(decimal valor)
         {
             if (valor <= 0)
                 return string.Empty;

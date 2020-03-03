@@ -9,18 +9,17 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>$(ProjectDir)\Tetris.Core.xml</DocumentationFile>
+    <DocumentationFile>$(ProjectDir)\Tetris.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tetris.Application\**" />
+    <EmbeddedResource Remove="Tetris.Application\**" />
+    <None Remove="Tetris.Application\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Dapper" Version="2.0.30" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tetris.Core.OAuth\" />
-    <Folder Include="Tetris.Core.Application\Extensions\" />
-    <Folder Include="Tetris.Core.Data\" />
-    <Folder Include="Tetris.Core.Data\Query\" />
-    <Folder Include="Tetris.Core.Data\Command\" />
   </ItemGroup>
 </Project>

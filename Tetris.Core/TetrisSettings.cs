@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace Tetris.Core
+namespace Tetris
 {
     public static class TetrisSettings
     {

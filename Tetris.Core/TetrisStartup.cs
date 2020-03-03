@@ -13,9 +13,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Tetris.Core.Domain.Attributes;
 
-namespace Tetris.Core
+namespace Tetris
 {
     public class TetrisStartup
     {

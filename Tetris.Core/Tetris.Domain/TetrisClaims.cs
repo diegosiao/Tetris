@@ -1,5 +1,8 @@
-﻿namespace Tetris.Core.Domain
+﻿namespace Tetris
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class TetrisClaims
     {
         public static readonly string UserId = "Tetris.User.Id";

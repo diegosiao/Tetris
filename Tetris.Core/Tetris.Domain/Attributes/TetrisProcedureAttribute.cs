@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Tetris.Core.Domain.Attributes
+namespace Tetris
 {
     /// <summary>
     /// Use to indicate that a class is a query or command stored procedure representation.

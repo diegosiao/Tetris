@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tetris.Core.Domain.Attributes
+namespace Tetris
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class TetrisOutputParameterAttribute : Attribute

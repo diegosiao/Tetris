@@ -5,15 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Tetris.Core.Domain.Attributes;
-using Tetris.Core.Exceptions;
-using Tetris.Core.Domain;
+using Tetris.Exceptions;
 using System.Data;
-using Tetris.Core.Data.Query;
-using Tetris.Core.Data.Command;
-using Tetris.Core.Tetris.Core.Application.Exceptions;
 
-namespace Tetris.Core.Data
+namespace Tetris
 {
     /// <summary>
     /// 
@@ -114,12 +109,12 @@ namespace Tetris.Core.Data
             var attributes = command.GetType().GetCustomAttributes(typeof(TetrisProcedureAttribute), true);
 
             if (attributes?.Length != 1)
-                throw new TetrisDbException($"The class '{command.GetType().FullName}' does not specify the attribute [TetrisProcedure]. ");
+                throw new TetrisDatabaseException($"The class '{command.GetType().FullName}' does not specify the attribute [TetrisProcedure]. ");
 
             var attribute = attributes[0] as TetrisProcedureAttribute;
 
             if (string.IsNullOrWhiteSpace(attribute.Procedure))
-                throw new TetrisDbException($"The attribute [TetrisProcedure] in class '{command.GetType().FullName}' does not provide the required procedure name. ");
+                throw new TetrisDatabaseException($"The attribute [TetrisProcedure] in class '{command.GetType().FullName}' does not provide the required procedure name. ");
 
             return attribute;
         }

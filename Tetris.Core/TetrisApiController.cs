@@ -6,10 +6,8 @@ using System.IO;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Tetris.Core.Data;
-using Tetris.Core.Domain;
 
-namespace Tetris.Core
+namespace Tetris
 {
     public class TetrisApiController : Controller
     {

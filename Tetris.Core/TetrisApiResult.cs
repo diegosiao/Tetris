@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Dynamic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Tetris.Core.Extensions;
+using Tetris.Extensions;
 
-namespace Tetris.Core
+namespace Tetris
 {
     public class TetrisApiResult
     {

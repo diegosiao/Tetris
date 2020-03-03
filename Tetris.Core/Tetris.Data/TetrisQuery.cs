@@ -6,9 +6,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Dynamic;
 using System.Threading.Tasks;
-using Tetris.Core.Domain.Attributes;
 
-namespace Tetris.Core.Data.Query
+namespace Tetris
 {
     /// <summary>
     /// Represents a database readonly operation. Your queries should inherit from this class.

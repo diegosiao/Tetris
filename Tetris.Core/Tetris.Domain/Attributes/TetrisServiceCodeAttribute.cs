@@ -1,25 +1,28 @@
 ﻿using System;
-using Tetris.Core.Exceptions;
+using Tetris.Exceptions;
 
-namespace Tetris.Core.Domain.Attributes
+namespace Tetris
 {
     /// <summary>
-    /// A seven characters code uniquely identifying the service
+    /// A seven characters code that uniquely identify the service
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class TetrisServiceCodeAttribute : System.Attribute
     {
         /// <summary>
-        /// A seven characters code uniquely identifying the service
+        /// A seven characters code that uniquely identify the service
         /// </summary>
         public string Code { get; set; }
 
         /// <summary>
-        /// A brief description of the purpose of this service
+        /// A brief description of the purpose of the associated service
         /// </summary>
         public string Description { get; set; }
 
-        /// <param name="code">A seven characters code uniquely identifying the service</param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code">A seven characters code that uniquely identifying the service</param>
         public TetrisServiceCodeAttribute(string code)
         {
             if (string.IsNullOrEmpty(code) || code.Length != 7)
@@ -28,7 +31,11 @@ namespace Tetris.Core.Domain.Attributes
             Code = code;
         }
 
-        /// <param name="code">A seven characters code uniquely identifying the service</param>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code">A seven characters code that uniquely identifying the service</param>
+        /// <param name="description">The description of the associated Web Action</param>
         public TetrisServiceCodeAttribute(string code, string description)
         {
             if (string.IsNullOrEmpty(code) || code.Length != 7)

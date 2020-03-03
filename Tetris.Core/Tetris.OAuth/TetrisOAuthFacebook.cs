@@ -1,29 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Tetris.Core.OAuth
+namespace Tetris.OAuth
 {
     /// <summary>
     /// Just a lab thing
     /// </summary>
-    public static class TetrisOAuthGoogle
+    public static class TetrisOAuthFacebook
     {
         public static async Task<bool> CheckTokenAsync(string token)
         {
             try
             {
                 using var client = new HttpClient();
-                var url = TetrisSettings.GoogleCheckTokenUrl
-                                        .Replace("{client_token}", token);
+                var url = TetrisSettings.FacebookCheckTokenUrl
+                                        .Replace("{client_token}", token)
+                                        .Replace("{access_token}", $"{TetrisSettings.FacebookAppId}|{TetrisSettings.FacebookAppSecret}");
 
                 var response = await client.GetAsync(url);
 
                 var body = JsonConvert.DeserializeObject<JObject>(await response.Content.ReadAsStringAsync());
-                
-                return body.TryGetValue("email", out JToken value);
+
+                return body["error"] == null && body["data"].Value<bool>("is_valid");
             }
             catch (Exception ex)
             {

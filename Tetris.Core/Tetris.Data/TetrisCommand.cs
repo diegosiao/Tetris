@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Tetris.Core.Data.Command
+namespace Tetris
 {
     /// <summary>
     /// Represents a database read or write operation. Your commands should inherit from this class.

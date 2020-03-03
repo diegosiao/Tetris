@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Linq;
 
-namespace Tetris.Core.Domain
+namespace Tetris
 {
     public class TetrisUser
     {

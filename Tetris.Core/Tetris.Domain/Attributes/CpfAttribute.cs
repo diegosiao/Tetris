@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace Tetris.Core.Domain.Attributes
-{
+namespace Tetris
+{ 
     /// <summary>
     /// A pt-BR thing...
     /// </summary>
