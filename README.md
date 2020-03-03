@@ -31,7 +31,7 @@ Configuration Section | Key | Description
 --- | --- | ---
 ConnectionStrings | Tetris_CommandsConnectionString | The connection string for read and write database commands
 ConnectionStrings | Tetris_QueriesConnectionString | The connection string for readonly database commands
-AppSettings | Tetris_EncriptionKey | Secret to be used in simple encryption and decryption operations
+AppSettings | Tetris_EncryptionKey | Secret to be used in simple encryption and decryption operations
 
 ## Who do I talk to about this?
 
