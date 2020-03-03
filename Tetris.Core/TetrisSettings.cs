@@ -8,7 +8,7 @@ namespace Tetris
     /// </summary>
     public static class TetrisSettings
     {
-        internal static string TetrisEncryptionSecret { get; private set; }
+        public static string TetrisEncryptionSecret { get; private set; }
 
         /// <summary>
         /// The default connection string for read/write operations
@@ -60,7 +60,7 @@ namespace Tetris
 
             GoogleCheckTokenUrl = configuration.GetString("AppSettings", nameof(GoogleCheckTokenUrl));
 
-            CorsAllowedOrigins = configuration.GetStringArray(nameof(CorsAllowedOrigins));
+            CorsAllowedOrigins = configuration.GetStringArray(nameof(CorsAllowedOrigins), true);
         }
 
         /// <summary>

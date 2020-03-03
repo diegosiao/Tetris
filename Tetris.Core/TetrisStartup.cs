@@ -16,17 +16,24 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Tetris
 {
-    public class TetrisStartup
+    /// <summary>
+    /// 
+    /// </summary>
+    public abstract class TetrisStartup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public TetrisStartup(IConfiguration configuration)
         {
             Configuration = configuration;
             TetrisSettings.LoadConfiguration(configuration);
         }
 
-        public static IConfiguration Configuration { get; private set; }
+        internal static IConfiguration Configuration { get; private set; }
 
-        public readonly string CorsAllowedOrigins = "_tetris_cors_config";
+        internal readonly string CorsAllowedOrigins = "_tetris_cors_config";
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -67,8 +74,21 @@ namespace Tetris
                            .AllowAnyMethod();
                 });
             });
+
+            TetrisConfigureServices(services);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
+        public abstract void TetrisConfigureServices(IServiceCollection services);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -92,12 +112,17 @@ namespace Tetris
             });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="args"></param>
         static public IHostBuilder CreateHostBuilder<T>(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureWebHostDefaults(builder =>
                 {
-                    webBuilder.UseStartup(typeof(T));
+                    builder.UseStartup(typeof(T));
                 });
         }
 

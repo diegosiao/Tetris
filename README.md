@@ -29,9 +29,9 @@ You can override the default connection string for specific Queries and Commands
 
 Configuration Section | Key | Description
 --- | --- | ---
-ConnectionStrings | Tetris_CommandsConnectionString | The connection string for read and write database commands
-ConnectionStrings | Tetris_QueriesConnectionString | The connection string for readonly database commands
-AppSettings | Tetris_EncryptionKey | Secret to be used in simple encryption and decryption operations
+ConnectionStrings | TetrisCommands | The connection string for read and write database commands
+ConnectionStrings | TetrisQueries | The connection string for readonly database commands
+AppSettings | TetrisEncryptionSecret | Secret to be used in simple encryption and decryption operations
 
 ## Getting Started
 
