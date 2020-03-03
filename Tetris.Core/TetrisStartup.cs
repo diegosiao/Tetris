@@ -46,7 +46,7 @@ namespace Tetris
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.EncryptionSecret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.TetrisEncryptionSecret)),
                     };
                 });
 

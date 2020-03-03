@@ -43,6 +43,10 @@ namespace Tetris
             }
         }
 
+        /// <summary>
+        /// The outputs in the conventioned format to be transformed into serialized TetrisApiResult outputs
+        /// </summary>
+        /// <param name="outputs"></param>
         public void LoadResultOutputs(string outputs)
         {
             if (string.IsNullOrEmpty(outputs))

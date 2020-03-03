@@ -56,7 +56,7 @@ namespace Tetris
                 if (procedureAttr.AddOutputsParam)
                     parameters.Add("outputs", null, null, ParameterDirection.Output);
 
-                var connectionString = TetrisSettings.ForQueries;
+                var connectionString = TetrisSettings.TetrisQueries;
 
                 if (!string.IsNullOrWhiteSpace(procedureAttr.ConnectionStringKey))
                     connectionString = TetrisStartup.Configuration.GetConnectionString(procedureAttr.ConnectionStringKey);

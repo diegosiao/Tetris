@@ -3,13 +3,22 @@ using System;
 
 namespace Tetris
 {
+    /// <summary>
+    /// Tetris application settings
+    /// </summary>
     public static class TetrisSettings
     {
-        internal static string EncryptionSecret { get; private set; }
+        internal static string TetrisEncryptionSecret { get; private set; }
 
-        public static string ForCommands { get; private set; }
+        /// <summary>
+        /// The default connection string for read/write operations
+        /// </summary>
+        public static string TetrisCommands { get; private set; }
 
-        public static string ForQueries { get; private set; }
+        /// <summary>
+        /// The default connection string for readonly operations
+        /// </summary>
+        public static string TetrisQueries { get; private set; }
 
         internal static string FacebookCheckTokenUrl { get; private set; }
 
@@ -19,18 +28,31 @@ namespace Tetris
 
         internal static string GoogleCheckTokenUrl { get; private set; }
 
+        /// <summary>
+        /// The concrete type of the default database connection class for queries (e.g.: typeof(MySqlConnection))
+        /// </summary>
         public static Type DatabaseConnectionForQueries { get; private set; }
 
+        /// <summary>
+        /// The concrete type of the default database connection class for commands (e.g.: typeof(MySqlConnection))
+        /// </summary>
         public static Type DatabaseConnectionForCommands { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string[] CorsAllowedOrigins { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public static void LoadConfiguration(IConfiguration configuration)
         {
-            ForCommands = configuration.GetString("ConnectionStrings", nameof(ForCommands));
-            ForQueries = configuration.GetString("ConnectionStrings", nameof(ForQueries));
+            TetrisCommands = configuration.GetString("ConnectionStrings", nameof(TetrisCommands));
+            TetrisQueries = configuration.GetString("ConnectionStrings", nameof(TetrisQueries));
 
-            EncryptionSecret = configuration.GetString("AppSettings", nameof(EncryptionSecret));
+            TetrisEncryptionSecret = configuration.GetString("AppSettings", nameof(TetrisEncryptionSecret));
 
             FacebookAppId = configuration.GetString("AppSettings", nameof(FacebookAppId));
             FacebookAppSecret = configuration.GetString("AppSettings", nameof(FacebookAppSecret));
@@ -41,11 +63,19 @@ namespace Tetris
             CorsAllowedOrigins = configuration.GetStringArray(nameof(CorsAllowedOrigins));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         public static void SetTetrisDatabaseConnectionTypeForCommands(Type type)
         {
             DatabaseConnectionForCommands = type;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
         public static void SetTetrisDatabaseConnectionTypeForQueries(Type type)
         {
             DatabaseConnectionForQueries = type;

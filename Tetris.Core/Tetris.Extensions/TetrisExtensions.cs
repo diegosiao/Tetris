@@ -17,7 +17,7 @@ namespace Tetris.Extensions
     /// </summary>
     public static class TetrisExtensions
     {
-        private static readonly string key = TetrisSettings.EncryptionSecret;
+        private static readonly string key = TetrisSettings.TetrisEncryptionSecret;
 
         public static string TryToSerialize(this object obj)
         {
@@ -54,7 +54,7 @@ namespace Tetris.Extensions
         public static string Encrypt(this string text)
         {
             if (string.IsNullOrEmpty(key))
-                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.EncryptionSecret)}'. ");
+                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.TetrisEncryptionSecret)}'. ");
 
             if (string.IsNullOrEmpty(text))
                 throw new ArgumentException("An empty text cannot be encrypted. ", nameof(text));
@@ -98,7 +98,7 @@ namespace Tetris.Extensions
         public static string Decrypt(this string encryptedText)
         {
             if (string.IsNullOrEmpty(key))
-                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.EncryptionSecret)}'. ");
+                throw new TetrisConfigurationException($"The encrtyption key was not defined in the configuration file: 'AppSettings > {nameof(TetrisSettings.TetrisEncryptionSecret)}'. ");
 
             if (string.IsNullOrEmpty(encryptedText))
                 throw new ArgumentException("An empty text cannot be decrypted. ");
