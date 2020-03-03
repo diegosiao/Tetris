@@ -53,7 +53,7 @@ AppSettings | Tetris_EncryptionKey | Secret to be used in simple encryption and 
 
 1. Make your controller inherit 'TetrisApiController'
 
-2. Declare your command or query representing class as an input parameter and execute it
+2. Declare your command or query representing class as an input parameter of any web action and execute it
 
 ## Who do I talk to about this?
 
