@@ -5,11 +5,18 @@
     <PackageId>Tetris</PackageId>
     <PackageVersion>1.0.3</PackageVersion>
     <Authors>Diego Morais, Grecio Beline</Authors>
-    <Description>A free, lightweight and simple to use .NET tool to help you to build APIs.</Description>
+    <Description>A free, lightweight and simple to use .NET tool to help you to build Web APIs.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>$(ProjectDir)\Tetris.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\Tetris.xml</DocumentationFile>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>BeforeBuild</type>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
 
   <ItemGroup>
