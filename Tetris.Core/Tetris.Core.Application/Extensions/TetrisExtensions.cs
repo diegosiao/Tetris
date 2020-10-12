@@ -17,7 +17,7 @@ namespace Tetris.Core.Extensions
 {
     public static class TetrisExtensions
     {
-        private static readonly string key = TetrisSettings.Secret;
+        private static readonly string key = TetrisSettings.AppSecret;
 
         public static IHostBuilder ConfigureTetrisAppSettings(this IHostBuilder hostBuilder)
         {

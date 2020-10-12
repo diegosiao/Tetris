@@ -4,6 +4,7 @@ using System.Linq;
 using System.Dynamic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Tetris.Core.Extensions;
+using System.Threading.Tasks;
 
 namespace Tetris.Core.Result
 {
@@ -67,6 +68,14 @@ namespace Tetris.Core.Result
                 Outputs.TryAdd("info", _outputs.Where(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Info).Select(x => new { x.Key, x.Code, x.Message }));
 
             Succeded = !_outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Error || x.Type == TetrisApiResultOutput.TetrisOutputType.Exception);
+        }
+
+        public static Task<TetrisApiResult> Fail(string message = null)
+        {
+            var result = new TetrisApiResult();
+            result.LoadResultOutputs(message);
+
+            return Task.FromResult(result);
         }
     }
 }

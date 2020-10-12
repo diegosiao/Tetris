@@ -65,17 +65,22 @@ namespace Tetris.Core.Data.Query
 
                     switch (procedureAttr.ResultType)
                     {
-                        case MoviQueryResultType.MultipleCollections:
+                        case TetrisQueryResultType.MultipleCollections:
                             result.Result = await conn.QueryMultipleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
                             await PrepareMultipleCollectionAsync(procedureAttr, result);
                             break;
-                        case MoviQueryResultType.Collection:
+                        case TetrisQueryResultType.Collection:
                             result.Result = await conn.QueryAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
                             PrepareCollection(procedureAttr, result);
                             break;
-                        case MoviQueryResultType.Single:
-                            result.Result = await conn.QuerySingleAsync(procedureAttr?.Procedure ?? procedure, parameters, commandType: CommandType.StoredProcedure);
-                            PrepareCollection(procedureAttr, result);
+                        case TetrisQueryResultType.Single:
+                            var dbSingleResult = await conn.QuerySingleOrDefaultAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
+
+                            if (dbSingleResult != null)
+                            {
+                                PrepareCollection(procedureAttr, result);
+                                result.Result = dbSingleResult;
+                            }
                             break;
                     }
 
@@ -97,41 +102,6 @@ namespace Tetris.Core.Data.Query
             }
 
             return result;
-        }
-
-        private void PrepareCollection(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
-        {
-            if (result.Result == null || 
-                proceureAttribute == null || 
-                proceureAttribute.ResultNames.Length == 0)
-                return;
-
-            var finalResult = new ExpandoObject();
-            finalResult.TryAdd<string, dynamic>(proceureAttribute.ResultNames[0], (object)result.Result);
-
-            result.Result = finalResult;
-        }
-
-        private async Task PrepareMultipleCollectionAsync(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
-        {
-            if (result.Result == null || 
-                proceureAttribute == null)
-                return;
-
-            var finalResult = new ExpandoObject();
-
-            var gridReader = (GridReader)result.Result;
-
-            int i = 0;
-            while (!gridReader.IsConsumed)
-            {
-                var collection = await gridReader.ReadAsync();
-                var name = proceureAttribute.ResultNames.Length - 1 >= i ? proceureAttribute.ResultNames[i] : $"collection{i + 1}";
-                finalResult.TryAdd<string, dynamic>(name, collection);
-                i++;
-            }
-
-            result.Result = finalResult;
         }
     }
 }

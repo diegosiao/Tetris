@@ -49,7 +49,7 @@ namespace Tetris.Core
                         ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.Secret)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TetrisSettings.AppSecret)),
                     };
                 });
 

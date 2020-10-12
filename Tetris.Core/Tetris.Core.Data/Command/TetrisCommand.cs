@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Dynamic;
 using System.Threading.Tasks;
+using Tetris.Core.Domain.Attributes;
 using Tetris.Core.Result;
 
 namespace Tetris.Core.Data.Command
@@ -20,11 +22,11 @@ namespace Tetris.Core.Data.Command
         {
             var result = new TetrisApiResult();
 
-            if (Controller?.ModelState != null && !Controller.ModelState.IsValid)
-                return await Task.FromResult(new TetrisApiResult(Controller.ModelState));
-
             try
             {
+                if (Controller?.ModelState != null && !Controller.ModelState.IsValid)
+                    return await Task.FromResult(new TetrisApiResult(Controller.ModelState));
+
                 var procedureAttr = GetProcedureAttribute(this);
                 var parameters = new DynamicParameters(this);
 
@@ -35,7 +37,6 @@ namespace Tetris.Core.Data.Command
 
                 var inputoutputs = GetInOutParameterNames();
 
-                // To override values setting the correct direction
                 foreach (var output in outputs)
                     parameters.Add(output, direction: ParameterDirection.Output);
 
@@ -46,7 +47,7 @@ namespace Tetris.Core.Data.Command
                     parameters.Add("sessionid", Controller?.User?.IdSessao);
 
                 if (procedureAttr.AddOutputsParam)
-                    parameters.Add("outputs", direction: ParameterDirection.Output);
+                    parameters.Add("outputs", null, null, ParameterDirection.Output);
 
                 var connectionString = TetrisSettings.ConnectionStrings_Commands;
 
@@ -57,13 +58,34 @@ namespace Tetris.Core.Data.Command
                 {
                     conn.Open();
 
-                    var rowsAffected = await conn.ExecuteAsync(new CommandDefinition(procedureAttr.Procedure, parameters, commandType: CommandType.StoredProcedure));
+                    switch (procedureAttr.ResultType)
+                    {
+                        case TetrisQueryResultType.MultipleCollections:
+                            result.Result = await conn.QueryMultipleAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
+                            await PrepareMultipleCollectionAsync(procedureAttr, result);
+                            break;
+                        case TetrisQueryResultType.Collection:
+                            result.Result = await conn.QueryAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
+                            PrepareCollection(procedureAttr, result);
+                            break;
+                        case TetrisQueryResultType.Single:
+                            var dbSingleResult = await conn.QuerySingleOrDefaultAsync(procedureAttr?.Procedure, parameters, commandType: CommandType.StoredProcedure);
+                            
+                            if (dbSingleResult != null)
+                            {
+                                PrepareCollection(procedureAttr, result);
+                                result.Result = dbSingleResult;
+                            }
+                                
+                            break;
+                    }
+
                     result.Succeded = true;
                 }
 
                 if (procedureAttr.AddOutputsParam)
                     result.LoadResultOutputs(parameters.Get<string>("outputs"));
-                
+
                 LoadOutputParamters(outputs, parameters);
                 LoadOutputParamters(inputoutputs, parameters);
 

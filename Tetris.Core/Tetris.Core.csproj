@@ -9,12 +9,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Dapper" Version="2.0.30" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tetris.Core.Domain\" />
-    <Folder Include="Tetris.Core.OAuth\" />
     <Folder Include="Tetris.Core.Application\Extensions\" />
     <Folder Include="Tetris.Core.Data\" />
     <Folder Include="Tetris.Core.Data\Query\" />

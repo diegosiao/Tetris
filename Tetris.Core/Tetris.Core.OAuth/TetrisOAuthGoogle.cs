@@ -2,14 +2,18 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Tetris.Core.Tetris.Core.Application.Exceptions;
+using Tetris.Core.Tetris.Core.OAuth;
 
 namespace Tetris.Core.OAuth
 {
-    public static class MoviOAuthGoogle
+    public static class TetrisOAuthGoogle
     {
-        public static async Task<bool> CheckTokenAsync(string token)
+        public static async Task<TetrisOAuthGoogleResult> CheckTokenAsync(string token)
         {
+            if (string.IsNullOrEmpty(TetrisSettings.GoogleCheckTokenUrl))
+                throw new TetrisConfigurationException("Informe a configuração 'AppSettings:GoogleCheckTokenUrl' para usar esse recurso. ");
+
             try
             {
                 using var client = new HttpClient();
@@ -18,14 +22,16 @@ namespace Tetris.Core.OAuth
 
                 var response = await client.GetAsync(url);
 
-                var body = JsonConvert.DeserializeObject<JObject>(await response.Content.ReadAsStringAsync());
-                
-                return body.TryGetValue("email", out JToken value);
+                var json = await response.Content.ReadAsStringAsync();
+
+                var result = JsonConvert.DeserializeObject<TetrisOAuthGoogleResult>(json);
+
+                return result;
             }
             catch (Exception ex)
             {
                 TetrisLog.ExceptionAsync(ex);
-                return false;
+                return new TetrisOAuthGoogleResult { ErrorDescription = ex.Message };
             }
         }
     }

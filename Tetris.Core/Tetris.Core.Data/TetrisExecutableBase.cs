@@ -13,6 +13,10 @@ using System.Data;
 using Tetris.Core.Data.Query;
 using Tetris.Core.Data.Command;
 using Tetris.Core.Tetris.Core.Application.Exceptions;
+using MySql.Data.MySqlClient;
+using System.Dynamic;
+using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Tetris.Core.Data
 {
@@ -88,13 +92,60 @@ namespace Tetris.Core.Data
 
         protected IDbConnection GetDatabaseConnection(string connectionString)
         {
-            if (this is TetrisQuery)
-                return Activator.CreateInstance(TetrisSettings.DatabaseConnectionForQueries, connectionString) as IDbConnection;
+            var database = connectionString?.Split(":");
 
-            if (this is TetrisCommand)
-                return Activator.CreateInstance(TetrisSettings.DatabaseConnectionForCommands, connectionString) as IDbConnection;
+            string assembly, type;
 
-            throw new TetrisConfigurationException("It is necessary to determine the Type of the Database Connection for Queries and/or Commands before executing database operations. Ex.: Tetris.Settings.SetTetrisDatabaseConnectionTypeForCommands(typeof(MySqlConnection))");
+            switch (database[0].ToLower())
+            {
+                case "mysql":
+                    assembly = "MySql.Data";
+                    type = "MySql.Data.MySqlClient.MySqlConnection";
+                    break;
+                default:
+                    throw new TetrisConfigurationException("Tetris connectionStrings should start with the database vendor name ':' then the connection string itself. Go to github.com/diegosiao/Tetris for supported database vendors. ");
+            }
+
+            IDbConnection conn = Activator.CreateInstance(assembly, type).Unwrap() as IDbConnection;
+            conn.ConnectionString = database[1];
+
+            return conn;
+        }
+
+
+        protected void PrepareCollection(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
+        {
+            if (result.Result == null ||
+                proceureAttribute == null ||
+                proceureAttribute.ResultNames.Length == 0)
+                return;
+
+            var finalResult = new ExpandoObject();
+            finalResult.TryAdd<string, dynamic>(proceureAttribute.ResultNames[0], (object)result.Result);
+
+            result.Result = finalResult;
+        }
+
+        protected async Task PrepareMultipleCollectionAsync(TetrisProcedureAttribute proceureAttribute, TetrisApiResult result)
+        {
+            if (result.Result == null ||
+                proceureAttribute == null)
+                return;
+
+            var finalResult = new ExpandoObject();
+
+            var gridReader = (GridReader)result.Result;
+
+            int i = 0;
+            while (!gridReader.IsConsumed)
+            {
+                var collection = await gridReader.ReadAsync();
+                var name = proceureAttribute.ResultNames.Length - 1 >= i ? proceureAttribute.ResultNames[i] : $"collection{i + 1}";
+                finalResult.TryAdd<string, dynamic>(name, collection);
+                i++;
+            }
+
+            result.Result = finalResult;
         }
 
         internal TetrisProcedureAttribute GetProcedureAttribute(object command)
@@ -124,7 +175,7 @@ namespace Tetris.Core.Data
 
         protected ValidationResult AssertTrue(bool expression, string errorMessage, params string[] memberNames)
         {
-            return expression ? new ValidationResult(errorMessage, memberNames) : null;
+            return expression ? null : new ValidationResult(errorMessage, memberNames);
         }
     }
 }
