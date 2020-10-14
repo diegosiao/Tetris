@@ -70,12 +70,21 @@ namespace Tetris.Core.Result
             Succeded = !_outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Error || x.Type == TetrisApiResultOutput.TetrisOutputType.Exception);
         }
 
-        public static Task<TetrisApiResult> Fail(string message = null)
+        public static async Task<TetrisApiResult> Fail(string message = null)
         {
             var result = new TetrisApiResult();
             result.LoadResultOutputs(message);
 
-            return Task.FromResult(result);
+            return await Task.FromResult(result);
+        }
+
+        public static async Task<TetrisApiResult> Success(object result)
+        {
+            var apiResult = new TetrisApiResult();
+            apiResult.Succeded = true;
+            apiResult.Result = result;
+
+            return await Task.FromResult(apiResult);
         }
     }
 }
