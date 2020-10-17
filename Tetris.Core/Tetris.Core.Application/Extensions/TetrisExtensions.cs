@@ -12,6 +12,7 @@ using System.Text.Json;
 using System.Dynamic;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Tetris.Core.Domain;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Tetris.Core.Extensions
 {
@@ -103,7 +104,7 @@ namespace Tetris.Core.Extensions
                     Array.ConstrainedCopy(aes.IV, 0, combined, 0, aes.IV.Length);
                     Array.ConstrainedCopy(result, 0, combined, aes.IV.Length, result.Length);
 
-                    return Convert.ToBase64String(combined);
+                    return Base64UrlEncoder.Encode(combined);
                 }
             }
         }
@@ -115,7 +116,7 @@ namespace Tetris.Core.Extensions
             if (string.IsNullOrEmpty(encryptedText))
                 throw new ArgumentException("Um texto vazio não pode ser encriptado.", nameof(encryptedText));
 
-            var combined = Convert.FromBase64String(encryptedText);
+            var combined = Base64UrlEncoder.DecodeBytes(encryptedText);
             var buffer = new byte[combined.Length];
             var hash = new SHA512CryptoServiceProvider();
             var aesKey = new byte[24];

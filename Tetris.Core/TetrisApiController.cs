@@ -19,8 +19,7 @@ namespace Tetris.Core
         protected async Task<TetrisApiResult> Ping()
         {
             var result = new TetrisApiResult();
-            result.Outputs.TryAdd("pong", new { type = "info", msg = GetType().Name });
-            result.Succeded = true;
+            result.Outputs.Add(new TetrisApiResultOutput($"pong=[i]{GetType().Name}"));
             
             return await Task.FromResult(result);
         }
@@ -28,7 +27,7 @@ namespace Tetris.Core
         new protected async Task<TetrisApiResult> Unauthorized()
         {
             var result = new TetrisApiResult();
-            result.Outputs.TryAdd("_error", new { type = "error", msg = "Desculpe, acesso negado" });
+            result.Outputs.Add(new TetrisApiResultOutput("Desculpe, acesso negado"));
             
             return await Task.FromResult(result);
         }

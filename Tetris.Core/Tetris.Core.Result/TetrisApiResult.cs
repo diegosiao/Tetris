@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Dynamic;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Tetris.Core.Extensions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Tetris.Core.Result
 {
@@ -18,7 +16,7 @@ namespace Tetris.Core.Result
 
         public bool Failed => !Succeded;
 
-        public ExpandoObject Outputs { get; set; }
+        public List<TetrisApiResultOutput> Outputs { get; set; }
 
         public dynamic Result
         {
@@ -26,22 +24,11 @@ namespace Tetris.Core.Result
             set;
         }
 
-        public TetrisApiResult()
-        {
-            Outputs = new ExpandoObject();
-        }
+        public TetrisApiResult() { }
 
         public TetrisApiResult(ModelStateDictionary modelState)
         {
-            Outputs = new ExpandoObject();
-
-            foreach (var item in modelState)
-            {
-                var msg = item.Value.Errors.FirstOrDefault()?.ErrorMessage;
-
-                if (!string.IsNullOrWhiteSpace(msg))
-                    Outputs.TryAdd(item.Key.Camelize(), msg);
-            }
+            Outputs = modelState.Select(x => new TetrisApiResultOutput(x)).ToList();
         }
 
         public void LoadResultOutputs(string outputs)
@@ -50,11 +37,12 @@ namespace Tetris.Core.Result
                 return;
 
             //FORMATO ESPERADO:
-            //name=This name is a little weird&email=[i,C548]Google emails are preferred(gmail)&[warning]This account will be manually analysed'
+            //name=This name is a little weird&email=[i,C548]Google emails are preferred(gmail.com)&[warning]This account will be manually analysed'
             var messages = outputs.Split(new char[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             
-            var _outputs = messages.Select(x => new TetrisApiResultOutput(x));
+            Outputs = messages.Select(x => new TetrisApiResultOutput(x)).ToList();
 
+            /*
             if (_outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Exception))
                 Outputs.TryAdd("exceptions", _outputs.Where(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Exception).Select(x => new { x.Key, x.Code, x.Message }));
 
@@ -66,8 +54,9 @@ namespace Tetris.Core.Result
 
             if (_outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Info))
                 Outputs.TryAdd("info", _outputs.Where(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Info).Select(x => new { x.Key, x.Code, x.Message }));
+            */
 
-            Succeded = !_outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Error || x.Type == TetrisApiResultOutput.TetrisOutputType.Exception);
+            Succeded = !Outputs.Any(x => x.Type == TetrisApiResultOutput.TetrisOutputType.Error || x.Type == TetrisApiResultOutput.TetrisOutputType.Exception);
         }
 
         public static async Task<TetrisApiResult> Fail(string message = null)

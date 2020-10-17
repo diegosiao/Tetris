@@ -1,32 +1,41 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Tetris.Core.Tetris.Core.Application.Exceptions;
 
 namespace Tetris.Core.OAuth
 {
     public static class TetrisOAuthFacebook
     {
-        public static async Task<bool> CheckTokenAsync(string token)
+        public static async Task<TetrisOAuthFacebookResult> CheckTokenAsync(string token)
         {
+            if (string.IsNullOrEmpty(TetrisSettings.FacebookCheckTokenUrl))
+                throw new TetrisConfigurationException("Informe a configuração 'AppSettings:FacebookCheckTokenUrl' para usar esse recurso. ");
+
+            if (string.IsNullOrEmpty(TetrisSettings.FacebookClientToken))
+                throw new TetrisConfigurationException("Informe a configuração 'AppSettings:FacebookClientToken' para usar esse recurso. ");
+
             try
             {
                 using var client = new HttpClient();
                 var url = TetrisSettings.FacebookCheckTokenUrl
-                                        .Replace("{client_token}", token)
-                                        .Replace("{movi_access_token}", $"{TetrisSettings.FacebookAppId}|{TetrisSettings.FacebookAppSecret}");
+                                        .Replace("{user_token}", token)
+                                        .Replace("{app_id}", TetrisSettings.FacebookAppId)
+                                        .Replace("{client_token}", TetrisSettings.FacebookClientToken);
 
                 var response = await client.GetAsync(url);
 
-                var body = JsonConvert.DeserializeObject<JObject>(await response.Content.ReadAsStringAsync());
+                var json = await response.Content.ReadAsStringAsync();
 
-                return body["error"] == null && body["data"].Value<bool>("is_valid");
+                var result = JsonConvert.DeserializeObject<TetrisOAuthFacebookResult>(json);
+
+                return result;
             }
             catch (Exception ex)
             {
                 TetrisLog.ExceptionAsync(ex);
-                return false;
+                return new TetrisOAuthFacebookResult();
             }
         }
     }

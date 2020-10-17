@@ -23,7 +23,6 @@ namespace Tetris.Core
         public TetrisStartup(IConfiguration configuration)
         {
             Configuration = configuration;
-            TetrisSettings.LoadConfiguration(configuration);
         }
 
         public static IConfiguration Configuration { get; private set; }

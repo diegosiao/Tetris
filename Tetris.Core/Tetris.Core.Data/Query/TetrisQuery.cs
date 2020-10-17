@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Threading.Tasks;
 using Tetris.Core.Domain.Attributes;
@@ -98,7 +99,8 @@ namespace Tetris.Core.Data.Query
             catch (Exception ex)
             {
                 result.Succeded = false;
-                result.Outputs.TryAdd("exception", new { Message = $"Desculpe, ocorreu um erro durante o processamento de sua requisição. {ex.Message}" });
+                new TetrisApiResultOutput(
+                        $"Desculpe, ocorreu um erro durante o processamento de sua requisição. {(Debugger.IsAttached ? ex.Message : string.Empty)}");
             }
 
             return result;

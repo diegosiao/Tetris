@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Tetris.Core.Result
 {
@@ -16,6 +19,8 @@ namespace Tetris.Core.Result
         public string Code { get; set; }
 
         public string Message { get; set; }
+
+        public string[] Messages { get; set; }
 
         public TetrisApiResultOutput(string rawMessage)
         {
@@ -48,6 +53,14 @@ namespace Tetris.Core.Result
                 Type = TetrisOutputType.Error;
                 Message = rawMessage;
             }
+        }
+
+        public TetrisApiResultOutput(KeyValuePair<string, ModelStateEntry> item)
+        {
+            Type = TetrisOutputType.Error;
+            Key = string.IsNullOrEmpty(item.Key) ? "__general" : item.Key;
+            Message = item.Value.Errors?.FirstOrDefault().ErrorMessage;
+            Messages = item.Value.Errors?.Select(x => x.ErrorMessage).ToArray();
         }
 
         private void LoadMatch(string rawMessage, Match match, TetrisOutputType type)
